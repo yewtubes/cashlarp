@@ -1,0 +1,848 @@
+[
+  {
+    "url": "https://cash-f.squarecdn.com/static/fonts/cashsans/v2/woff2/CashSans-Medium.woff2",
+    "path": "cdn/static/fonts/cashsans/v2/woff2/CashSans-Medium.woff2",
+    "bytes": 33812,
+    "sha256": "8b085cf9875c175c403e1e763c4d889c3cb2f7b6b0de9bdb6038a2e85bf710aa"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/static/fonts/cashsans/v2/woff2/CashSans-Regular.woff2",
+    "path": "cdn/static/fonts/cashsans/v2/woff2/CashSans-Regular.woff2",
+    "bytes": 35024,
+    "sha256": "4aed7a2639d907f563e566fb04775109a26eea39e367dadde75917f914b6c90f"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/runtime.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/runtime.1973b48deea66eb9.js",
+    "bytes": 8505,
+    "sha256": "1e5cd7af651e8030767997436d801c7ba77c9093339ae49bc0a67ec93450da32"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/main.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/main.1973b48deea66eb9.js",
+    "bytes": 4046406,
+    "sha256": "214a5a81bfb97f641f20c07c3b7de19933d2b9a472cece0a0d47479b91bac794"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/static/apple-touch-icon.png",
+    "path": "cdn/static/apple-touch-icon.png",
+    "bytes": 3362,
+    "sha256": "0f353043bb01d4b0a35ba8c84c251cbe60397d9ab378ea1c00aa61be1892fc2b"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/static/manifest.webmanifest",
+    "path": "cdn/static/manifest.webmanifest",
+    "bytes": 257,
+    "sha256": "22821e7554ae15574df17e669975c91ace763c48247c8957fd8eb939050be4e3"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/static/favicon.ico",
+    "path": "cdn/static/favicon.ico",
+    "bytes": 1150,
+    "sha256": "2b6fe1428e7559d47fd3672891ced8b9c1fffd757461dfb13e134340077ddd06"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/static/favicon.svg",
+    "path": "cdn/static/favicon.svg",
+    "bytes": 1455,
+    "sha256": "14a12304a348fe9c47eebd672c6be5a3ef707d5b70b9e5de3c799bdfbefc686c"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/450.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/450.1973b48deea66eb9.js",
+    "bytes": 3999,
+    "sha256": "4ffaa735d8867baf982923c5d9e1a22c963e66e59ef5d439d324eb4f3626190a"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/login.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/login.1973b48deea66eb9.js",
+    "bytes": 27298,
+    "sha256": "0223e69368764b21b7ae120745dfc9a9578130eca680b1b48121a1768730c286"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/81.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/81.1973b48deea66eb9.js",
+    "bytes": 263923,
+    "sha256": "f35dd367ee67c12136aa25034432f3f13269d379a05b96dc8292f38ebe4983e3"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/GlitterCardBack-SVGComponent.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/GlitterCardBack-SVGComponent.1973b48deea66eb9.js",
+    "bytes": 10434,
+    "sha256": "448b802e63b890a1e1bf3a09fdfcbdf9cd8c403ae4bae805469426d86fb48f09"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/163.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/163.1973b48deea66eb9.js",
+    "bytes": 137499,
+    "sha256": "ee9d3104af51363778815536685cf3db7b48f6f947b4e13a70fc3263d6296b03"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/BlackCardBack-SVGComponent.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/BlackCardBack-SVGComponent.1973b48deea66eb9.js",
+    "bytes": 3170,
+    "sha256": "8ed99a7cbba3ff1076d853ab829ab0fad803c7e00f44767f8c0311ad2466ffe9"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/231.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/231.1973b48deea66eb9.js",
+    "bytes": 6210,
+    "sha256": "7a536221e35dd199a8c2cd7bc768cfbad1c77082ec92951b7e7298ec4c3078c5"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/CashtagCard-SVGComponent.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/CashtagCard-SVGComponent.1973b48deea66eb9.js",
+    "bytes": 576,
+    "sha256": "9d6b42ed2ce742a164f37f9832b25a7d4a27632af747a31a5c16e53fad21b5f1"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/237.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/237.1973b48deea66eb9.js",
+    "bytes": 854,
+    "sha256": "6da275fb30d78728b8b1ff8bd2a7f32b78c842fd8f14be306c7884d3fa28205e"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/BlackMetalCard-SVGComponent.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/BlackMetalCard-SVGComponent.1973b48deea66eb9.js",
+    "bytes": 75870,
+    "sha256": "85fac4d2702437a2992d629549f4371a8ea17d43863e7a057b924b9ff0f745b3"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/HoloCardBack-SVGComponent.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/HoloCardBack-SVGComponent.1973b48deea66eb9.js",
+    "bytes": 25613,
+    "sha256": "fd9400da1f0fd6e9e2d4777c0e59fe44188b1459447a645eb44f0d52c89928dc"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/GlitterCard-SVGComponent.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/GlitterCard-SVGComponent.1973b48deea66eb9.js",
+    "bytes": 9832,
+    "sha256": "2839dc422fc40dfff32103199431f8d1ffc0c0257554c31ca09530c1fa67387d"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/264.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/264.1973b48deea66eb9.js",
+    "bytes": 86707,
+    "sha256": "47bbf04bf4c64f27da46c2f676fc1fd3caef58639aafa01a7cdddbcc06f71c68"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/276.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/276.1973b48deea66eb9.js",
+    "bytes": 935,
+    "sha256": "27c933a0925b6c084ea682e6323a4fcbaa05c8b849faa3cfd6887a869bd0216c"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/BratCardBack-SVGComponent.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/BratCardBack-SVGComponent.1973b48deea66eb9.js",
+    "bytes": 3129,
+    "sha256": "3ecb2b029a8dfa4d43a6d51e00228ae8da9ef87a3c00ad0984d550d4470da896"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/BratCard-SVGComponent.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/BratCard-SVGComponent.1973b48deea66eb9.js",
+    "bytes": 22399,
+    "sha256": "ea5c0eaed6100a8a437dff2f41018081abe13d49338a85365c2b21ead2526fe2"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/380.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/380.1973b48deea66eb9.js",
+    "bytes": 112373,
+    "sha256": "21f0e234f8d27aaed0cb02087a9012b7b91569442a3b1b4261369242366cc77a"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/440.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/440.1973b48deea66eb9.js",
+    "bytes": 11696,
+    "sha256": "478be7c99c6200f6baaae54fcae7e2f961ead9e0cf8056ac2167b2cb4e752bea"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/ShantellMartinCard-SVGComponent.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/ShantellMartinCard-SVGComponent.1973b48deea66eb9.js",
+    "bytes": 1106,
+    "sha256": "0a181c82d53f47d231aacbc3a79bd5a6308c59a58bf4b9fa7817c7063e0aca60"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/454.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/454.1973b48deea66eb9.js",
+    "bytes": 854,
+    "sha256": "ef1226f45fb0559dee729da2431aa7bd82dc98f337d3fedebddd6b716b04432e"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/481.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/481.1973b48deea66eb9.js",
+    "bytes": 1048371,
+    "sha256": "2454b7f52cdcd97c80977c8d901c13ae107020e135436d7ab04e306016be1224"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/PinkCardBack-SVGComponent.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/PinkCardBack-SVGComponent.1973b48deea66eb9.js",
+    "bytes": 3129,
+    "sha256": "9d5b2d3e5719a9f762f8566f1a975f8f7d25daa92e7e4b2f600be9cd8568ec33"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/MoodCardBack-SVGComponent.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/MoodCardBack-SVGComponent.1973b48deea66eb9.js",
+    "bytes": 13666,
+    "sha256": "80711e46e3760e55111a89f442053addb85d9371d14877eaf86b6e546d2710a5"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/502.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/502.1973b48deea66eb9.js",
+    "bytes": 12108,
+    "sha256": "c543ca52760951336c6cad7dbb5f3b83c0dac371627cd2c42f7273dc170d96c3"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/ChameleonMetalCardBack-SVGComponent.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/ChameleonMetalCardBack-SVGComponent.1973b48deea66eb9.js",
+    "bytes": 3560,
+    "sha256": "9dddab369f5f2cde6b3ded341af6fb07d3b0aed7bd586eae8ae569a010b9138e"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/ShantellMartinCardBack-SVGComponent.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/ShantellMartinCardBack-SVGComponent.1973b48deea66eb9.js",
+    "bytes": 3248,
+    "sha256": "b1e75a5b620f9bd2cb5705f4a2d6c1d8d40f770421bfd7f6467dab3547931e45"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/ChameleonMetalCard-SVGComponent.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/ChameleonMetalCard-SVGComponent.1973b48deea66eb9.js",
+    "bytes": 2120,
+    "sha256": "a1f8f80e5706aaba20b6fff59e81b8a6459c32c253d3a6037324d8063ec48a72"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/BlackCard-SVGComponent.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/BlackCard-SVGComponent.1973b48deea66eb9.js",
+    "bytes": 942,
+    "sha256": "76bb2f949ca8c193245e0fbf982e872e42a9b3bc99f1f1f2e71223834239333c"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/BlackMetalCardBack-SVGComponent.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/BlackMetalCardBack-SVGComponent.1973b48deea66eb9.js",
+    "bytes": 3071,
+    "sha256": "c0506173dbd1c92cc6dfd2392976dbc5b8418671f2be47b9a4d8d00376c0ef02"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/DreamCardBack-SVGComponent.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/DreamCardBack-SVGComponent.1973b48deea66eb9.js",
+    "bytes": 3132,
+    "sha256": "3454e490c8c42b9473a69b31b1ab0f18dd9e495df0fcac746531cb94f2ac6836"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/WhiteCardBack-SVGComponent.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/WhiteCardBack-SVGComponent.1973b48deea66eb9.js",
+    "bytes": 3132,
+    "sha256": "9167ce90c2bf3d7405d7ce437a1fa74dbb8459592cb25277e68b271c168b7928"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/HoloCard-SVGComponent.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/HoloCard-SVGComponent.1973b48deea66eb9.js",
+    "bytes": 32098,
+    "sha256": "c28d293c66b2733ccdba8351164dfbaf8328cd1c5e53dc516d552cdd6ee66dad"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/TortoiseCard-SVGComponent.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/TortoiseCard-SVGComponent.1973b48deea66eb9.js",
+    "bytes": 42274,
+    "sha256": "d6bfba121ea35af2e4f286b223bf78cf958bc97148a374dbd1b24b7039ff8dca"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/ChipCard-SVGComponent.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/ChipCard-SVGComponent.1973b48deea66eb9.js",
+    "bytes": 13182,
+    "sha256": "5e7a95612dd282ee4294258d45a1780431bff80f8b27f5ed19aa571afd2d6064"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/TortoiseCardBack-SVGComponent.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/TortoiseCardBack-SVGComponent.1973b48deea66eb9.js",
+    "bytes": 4010,
+    "sha256": "32c8f1c0fc34d0016d2bc09591a800b260ace2d3c18e352563203b28f246058a"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/WhiteCard-SVGComponent.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/WhiteCard-SVGComponent.1973b48deea66eb9.js",
+    "bytes": 1121,
+    "sha256": "2e26d1cb963087405917ec6fed259bb1b71b4c2d060adcab914814344729d70d"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/ErrorIllustration.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/ErrorIllustration.1973b48deea66eb9.js",
+    "bytes": 272523,
+    "sha256": "4a239732008178a77a38b7ac8295c78fcc4cc7981a0836a9250cee2ab3e7b38d"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/MoodCard-SVGComponent.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/MoodCard-SVGComponent.1973b48deea66eb9.js",
+    "bytes": 12129,
+    "sha256": "db2fccb10edae8352adb71749501b6e52544d2192b4d7a569ecebebb5c6423bc"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/HundredThievesCard-SVGComponent.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/HundredThievesCard-SVGComponent.1973b48deea66eb9.js",
+    "bytes": 60443,
+    "sha256": "8de9246a11a9a7000d08163e956256aedf7742acad5e68fce841eccffb5a355d"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/GlowInTheDarkCardBack-SVGComponent.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/GlowInTheDarkCardBack-SVGComponent.1973b48deea66eb9.js",
+    "bytes": 3144,
+    "sha256": "d064267ddac34a1281d72c34bbf91cac98ea481e75cfd0b8683f20d3491e6f0e"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/799.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/799.1973b48deea66eb9.js",
+    "bytes": 819,
+    "sha256": "afb1ac76d9a17541e64d06e35772c312d194804db7420d7525f3d9f3971d2d55"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/840.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/840.1973b48deea66eb9.js",
+    "bytes": 811,
+    "sha256": "c4f67d665ea529c4b3384df5e658869ef1a26124467467a786bef292727d80a7"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/DreamCard-SVGComponent.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/DreamCard-SVGComponent.1973b48deea66eb9.js",
+    "bytes": 36071,
+    "sha256": "0a0ff01a57135dbf53b815aef14061d9535e06142a4cfcaac65f4a443fc74968"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/877.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/877.1973b48deea66eb9.js",
+    "bytes": 1290,
+    "sha256": "bd5e03788168c69df7587dc5b4fac4f245a403308df48594044f9c758f16ef5b"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/GlowInTheDarkCard-SVGComponent.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/GlowInTheDarkCard-SVGComponent.1973b48deea66eb9.js",
+    "bytes": 1120,
+    "sha256": "2720b818199c7c9814bbf07390770b8aaa400a88089dcff648f37fedd51803e1"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/HundredThievesCardBack-SVGComponent.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/HundredThievesCardBack-SVGComponent.1973b48deea66eb9.js",
+    "bytes": 3104,
+    "sha256": "6c6fc65ea3d56eb70a91a35d1a93970142c618dffc2efc6a6506b6a10c4b9e04"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/PinkCard-SVGComponent.1973b48deea66eb9.js",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/PinkCard-SVGComponent.1973b48deea66eb9.js",
+    "bytes": 1118,
+    "sha256": "1fcc62776ad25a529d38737a67f75206a93931957debea1669fef85ca2283470"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/login/d964d4f8766900778d7282f4b26521146f6d2785/assets/apps/i18n-assets/assets/locales/en-US/login.json",
+    "path": "cdn/web/login/d964d4f8766900778d7282f4b26521146f6d2785/assets/apps/i18n-assets/assets/locales/en-US/login.json",
+    "bytes": 190838,
+    "sha256": "ef0989d2baff48fc396f5ebdb64f18231085d83c89a70bc40e511fbf6bba0d2c"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/3559.019cb1e6a5b878db.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/3559.019cb1e6a5b878db.js",
+    "bytes": 15190,
+    "sha256": "77081ae784f1772b9dbf7f194597d206ab22692c2dccbb75ab043771d246d3a9"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/4112.e563d7891d1523cb.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/4112.e563d7891d1523cb.js",
+    "bytes": 3947,
+    "sha256": "ac7595d3059c7992741da027cd34f16e2c220860ac5689aa92a1c846304e69f6"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/7742.a87fdf44e097d349.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/7742.a87fdf44e097d349.js",
+    "bytes": 1172554,
+    "sha256": "9ecfe7eccb84f792276c509ef22fb24cb42ae99a228b34f84b1272916f242741"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/main.fa6baaec96a82623.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/main.fa6baaec96a82623.js",
+    "bytes": 4635268,
+    "sha256": "9fe1ac2cd1dbaee044d93904f36794d80e216acb5744c5ddc9d10ad1601f9567"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/runtime.a1ea354b43d18d7c.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/runtime.a1ea354b43d18d7c.js",
+    "bytes": 12805,
+    "sha256": "3f9fddb4d1f69c4c7b27ba01ae8c45b189f7d9b349e154d792399827a09ffaf4"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/1008.ba12ce0269c0445b.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/1008.ba12ce0269c0445b.js",
+    "bytes": 111420,
+    "sha256": "6a26428c5525e1b519b235e977bd97058daece1440b2e220e85cdca1278b6090"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/1407.3a3e1a7cd98ac998.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/1407.3a3e1a7cd98ac998.js",
+    "bytes": 1210809,
+    "sha256": "1afeb86848e971d823a123faa273da15ff85ae46ba5334adf4235c87fb577730"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/183.db3ceb1e9b99efe8.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/183.db3ceb1e9b99efe8.js",
+    "bytes": 41936,
+    "sha256": "4c9d6f7051836c8fd3555423e2dc557e6edba37660475b9210960800455175ce"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/2105.5723089b6a3027b1.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/2105.5723089b6a3027b1.js",
+    "bytes": 264252,
+    "sha256": "d2f0dd7a2fc265fed3c69c5f5d2f1d42bfc5f210c8cae68abccfdd986e800fc2"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/2460.8ce1767f49358fe3.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/2460.8ce1767f49358fe3.js",
+    "bytes": 120095,
+    "sha256": "38dad883b7f5c4c8fbd0d7211c152b39937756f30aed7afadedb182c05531ff1"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/2588.2e8825cd8191ae5f.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/2588.2e8825cd8191ae5f.js",
+    "bytes": 19300,
+    "sha256": "8481e2965f8d0793b996fc525bb7f6a2aa9908acf373c113ca7ecb7c9f213496"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/2791.bb13f86b6714ce69.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/2791.bb13f86b6714ce69.js",
+    "bytes": 22854,
+    "sha256": "2ba18a1b730d924cea01f2decd5a39d8efeddd3bce14a0329178c9a6ad7748d8"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/2836.f989df3799a5eacd.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/2836.f989df3799a5eacd.js",
+    "bytes": 7143,
+    "sha256": "2e06859e0ab5bedc60b32dd5951cbea1174b17c055dc3f1fbe34f87d37195bec"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/298.2d5c9e22fad10a62.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/298.2d5c9e22fad10a62.js",
+    "bytes": 23769,
+    "sha256": "9af870faabdb9d3e7e6d6532c1f783ecfb18359bbf8fd87a01d5d9a36dd46a69"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/2994.096430778c243c6d.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/2994.096430778c243c6d.js",
+    "bytes": 13298,
+    "sha256": "a54c1cc3b078d958e593e5600e0fcfc00a34bda2dcae058846d2df20b5d45ea9"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/3141.813b441aacea36a8.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/3141.813b441aacea36a8.js",
+    "bytes": 314233,
+    "sha256": "919e599fdcb286c3868378af5f025aae1d039fbbd8881558c6355e8168625f7c"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/331.56d53ec346e5ae37.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/331.56d53ec346e5ae37.js",
+    "bytes": 1423,
+    "sha256": "e20947c7c9d36b109338d356f1d767a97a57b235305a028e4e34926afbcef164"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/3413.fce8be2bd00fe2d3.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/3413.fce8be2bd00fe2d3.js",
+    "bytes": 63956,
+    "sha256": "f6ff8e9e50f79bfcdf6536c5c7baa87cdbe401bdb5c9ccaea2edb4cafbdce0b6"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/3542.4d2b4b861b71094d.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/3542.4d2b4b861b71094d.js",
+    "bytes": 879,
+    "sha256": "c231a5a726ece8992588a40a5e9f8030d532a4b9d0035d2ddfa6cccb90939424"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/358.571484693bde9c31.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/358.571484693bde9c31.js",
+    "bytes": 186281,
+    "sha256": "5894d2f78231267de70945a96c1ba823e2397d6d2272d04104ba4c17e38bb588"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/3829.2c119ce78876f4bd.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/3829.2c119ce78876f4bd.js",
+    "bytes": 312184,
+    "sha256": "127a99c93eb15493158ee0873d929bd0c270a56e542e8264fee6d82c4f860688"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/3894.2c2f9f3e572ce0bc.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/3894.2c2f9f3e572ce0bc.js",
+    "bytes": 796,
+    "sha256": "55b33b3c1f577eeb52373265895dc9e5882b6ccffd27da97146e9b5bb025600a"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/3978.197c679954438baa.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/3978.197c679954438baa.js",
+    "bytes": 14799,
+    "sha256": "8f529f268b268f48c15588b829408bd1e70c91fc152c4f2649355619b0bf9762"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/4007.ad62d1b3be046656.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/4007.ad62d1b3be046656.js",
+    "bytes": 1232,
+    "sha256": "73e80e6a75e9c3c9f090b11d7333847eb10c8d51a3737c9c00acedb9b6439d51"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/4480.2c39134953cf4e7b.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/4480.2c39134953cf4e7b.js",
+    "bytes": 879868,
+    "sha256": "0a45f7723632ad13461919909d281fb4e58a345b4c6e56936aa220007830819b"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/4863.08914542407a916e.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/4863.08914542407a916e.js",
+    "bytes": 37292,
+    "sha256": "3798e4b29e3237e7b96020b036286609e1a2ba059a4bbe9d051df6df73ae039a"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/5133.6817885c2951a502.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/5133.6817885c2951a502.js",
+    "bytes": 6144,
+    "sha256": "5822f80151bf11f13d81335a55ba1378cb73ddf867db8b6aa682e1627493f743"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/5258.fb47e944527c2818.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/5258.fb47e944527c2818.js",
+    "bytes": 85180,
+    "sha256": "7ac1b7cccbf47adc274457710fcf1d191044251e4942caa3f279c610edbb0ca3"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/5421.98d98716d5fe5820.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/5421.98d98716d5fe5820.js",
+    "bytes": 753,
+    "sha256": "36a0c5940d6bf4e69cc96e61495a6ab4662a75845ae58a41b51f735e8118f5c9"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/5453.3e7f496fddc69350.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/5453.3e7f496fddc69350.js",
+    "bytes": 30540,
+    "sha256": "71705384666cc5906b239149cd4e22bde4413fdbe1e9c48d0d559d1e5532bbb7"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/550.dc80bd1257dfdbf6.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/550.dc80bd1257dfdbf6.js",
+    "bytes": 9280,
+    "sha256": "8d462226e74116736b63f4d19009badddda5b808d9c64fccc8e914f8a3019043"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/5507.43011a5ed6a23055.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/5507.43011a5ed6a23055.js",
+    "bytes": 35300,
+    "sha256": "bc78f6941a84c59fb1ebd8d6f7d19d58c3e5b13673bd6d52f3ed202db635afc3"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/5601.281a755b75d4668c.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/5601.281a755b75d4668c.js",
+    "bytes": 760,
+    "sha256": "7a3838960fcadf5ee6fca3139eec9718d31ce3882b252bb586d3c3158bf1a14d"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/5924.3e8d6abdad19409b.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/5924.3e8d6abdad19409b.js",
+    "bytes": 38643,
+    "sha256": "fe8a5d4049d45343130507cf2ed851c6de2d64eff27333132d4f969b3ed34b68"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/5925.77f1c859fb3c9834.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/5925.77f1c859fb3c9834.js",
+    "bytes": 77493,
+    "sha256": "1d9994046e540941ae767a14bfbcc54c6cafda77cd4384d75cc1ef3df4a97efe"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/6349.e9e69b680a77dcf8.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/6349.e9e69b680a77dcf8.js",
+    "bytes": 15268,
+    "sha256": "3e998e3cd0149493988334b602f2015a75c17c0e9a898e0a4713aa9449591cad"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/6481.6074373ee9677e52.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/6481.6074373ee9677e52.js",
+    "bytes": 703838,
+    "sha256": "3de096fc4dde225b7894f6e8c1d0e27cc3bf44dccc4b60290a5337b8e4db7b30"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/699.35d31ce8fa438d00.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/699.35d31ce8fa438d00.js",
+    "bytes": 57007,
+    "sha256": "c0fa719dc222383f48023d0c0ea2af6c543530420270962fbf178e0d610772b5"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/6995.4319a8f1a7cb5304.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/6995.4319a8f1a7cb5304.js",
+    "bytes": 9693,
+    "sha256": "e3980097bd276f55e9bac452d5ba600939b582f1fbbe14c4d83c77785f203a0b"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/7004.bd53937ec670e45e.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/7004.bd53937ec670e45e.js",
+    "bytes": 549136,
+    "sha256": "9c1526683918e4d48e165a989057cf004ac37c3ec4453884860b1d0a461e88e2"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/7470.bad39cb201170050.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/7470.bad39cb201170050.js",
+    "bytes": 54348,
+    "sha256": "f85ca5305c9045c626eb0be98ab2b366a91e10412e6ed3dfe46ae5df06dc3afa"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/7805.a2df2a7feb07949b.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/7805.a2df2a7feb07949b.js",
+    "bytes": 26486,
+    "sha256": "aa5913a2d3feae958063033623d2eedd34b4359f3894666697cffdba321613b1"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/7897.73ae6e67d8c26e0a.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/7897.73ae6e67d8c26e0a.js",
+    "bytes": 37004,
+    "sha256": "272d9023f9a290af9352ea873634e0cfef2568d226b24d01b0b1c6f99e9348ad"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/8052.5d7aba9023d58d6e.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/8052.5d7aba9023d58d6e.js",
+    "bytes": 7149,
+    "sha256": "afcf1e09752d735e079fbeef99496342a2d12dce4105d44f6863bb14f6ef45e8"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/8272.9c9c52ed2226b553.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/8272.9c9c52ed2226b553.js",
+    "bytes": 40653,
+    "sha256": "7a6e46aa4dec7e428324c5700da7fe826f1289fa0aa507c6ee4bb555534db68d"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/8685.35b1d3144410dce9.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/8685.35b1d3144410dce9.js",
+    "bytes": 2181,
+    "sha256": "38886cb289c1dac45bbfa7fa42439ff159b1a875be0516381591d81c1eb88c4a"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/8782.bfb30219c5ea05c8.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/8782.bfb30219c5ea05c8.js",
+    "bytes": 37231,
+    "sha256": "7b9400da4d4d390ae3c49abc62aeed48c7a2e78114084a2ffb373791da482636"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/8857.11a2076ae3f4aa02.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/8857.11a2076ae3f4aa02.js",
+    "bytes": 796,
+    "sha256": "76561697d9ffd5fbf04cf3b598f91f874254cc7c494227debda77f6a47baac65"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/9167.cf3104dd3e2cbfa3.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/9167.cf3104dd3e2cbfa3.js",
+    "bytes": 306811,
+    "sha256": "7907740323497d51790ee6d2e1b84a29c4fad8849d2a8555bdf12c2da9491d9a"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/952.bf1ebdfef7f03c99.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/952.bf1ebdfef7f03c99.js",
+    "bytes": 471,
+    "sha256": "beb228d81a4909c8422321687c87ce5af6e105de15733aab09405b25431aec52"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/BlackCard-SVGComponent.e3e8ef2718aa4dfc.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/BlackCard-SVGComponent.e3e8ef2718aa4dfc.js",
+    "bytes": 864,
+    "sha256": "cd780a9930af5b69b752025f558872bd6def46f14f6910f1acbfc9b9f2b562e5"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/BlackCardBack-SVGComponent.6d689f3708d7e20d.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/BlackCardBack-SVGComponent.6d689f3708d7e20d.js",
+    "bytes": 3089,
+    "sha256": "27bd9bc4455cce1fe6f2c8e52eb1a8d52a088fb4e56e607ebbfd36adeebecb9d"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/BlackMetalCard-SVGComponent.ed14c4b91f9849bb.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/BlackMetalCard-SVGComponent.ed14c4b91f9849bb.js",
+    "bytes": 75787,
+    "sha256": "335d6f28eaf02b4400fff4ba52cd209d4b073aac0af2d940445300d44ceea28b"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/BlackMetalCardBack-SVGComponent.66960661ffab69a1.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/BlackMetalCardBack-SVGComponent.66960661ffab69a1.js",
+    "bytes": 2985,
+    "sha256": "e4f61bfa589d5486572bd26cdbd07f78c0ca54b56b2534715fbd2dd163bbf00c"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/BratCard-SVGComponent.c00800ee93405452.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/BratCard-SVGComponent.c00800ee93405452.js",
+    "bytes": 22323,
+    "sha256": "c09ed00c6d103bb64bb049f200afa20ce6671ba6f6215216360dcbeb13ba3ee4"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/BratCardBack-SVGComponent.9d60971640560698.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/BratCardBack-SVGComponent.9d60971640560698.js",
+    "bytes": 3048,
+    "sha256": "ee635e4070322dc23300054904f1bacbb02fb176b2f6475d6e6282a514bfc18c"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/CashtagCard-SVGComponent.1ca8a2ee1e487e76.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/CashtagCard-SVGComponent.1ca8a2ee1e487e76.js",
+    "bytes": 498,
+    "sha256": "ca9ba2209236bdeefdda8b214ac58a33672ac7967af9277a180dc2ea273f845e"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/ChameleonMetalCard-SVGComponent.ff06cfd93e1bb960.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/ChameleonMetalCard-SVGComponent.ff06cfd93e1bb960.js",
+    "bytes": 2033,
+    "sha256": "a2a573e52f7d36ff9bcba324e76b49bdc744aa021b641d09727b4929561812c0"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/ChameleonMetalCardBack-SVGComponent.e53a6d0467726be0.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/ChameleonMetalCardBack-SVGComponent.e53a6d0467726be0.js",
+    "bytes": 3471,
+    "sha256": "1bfb788d7e6d457c8f971d35b7a9d7a533cd725902df09cc87ae8adae34a054f"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/ChipCard-SVGComponent.766eabc89905f035.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/ChipCard-SVGComponent.766eabc89905f035.js",
+    "bytes": 13106,
+    "sha256": "9dea9145e8cc7618d3e88d425d4ca02a677b41b62c4e5c2be202bfefebd2abe7"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/DreamCard-SVGComponent.c924386953b8308b.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/DreamCard-SVGComponent.c924386953b8308b.js",
+    "bytes": 35995,
+    "sha256": "393fd118b6ded610f0aeddb758465dc7f680b67e5822b51a744356834a26d4fc"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/DreamCardBack-SVGComponent.af8f9be4cb91c931.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/DreamCardBack-SVGComponent.af8f9be4cb91c931.js",
+    "bytes": 3051,
+    "sha256": "1bc03c934be6944161374536eb91e7b39e7fe5f774fa755e74a74c296d697205"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/ErrorIllustration.0e6aab0276d492ed.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/ErrorIllustration.0e6aab0276d492ed.js",
+    "bytes": 272450,
+    "sha256": "4fbecd968949fe423f8f55c369a42814972f0f08f8ef6a18abf8db085ea478be"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/GlitterCard-SVGComponent.f2012f56fc36e394.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/GlitterCard-SVGComponent.f2012f56fc36e394.js",
+    "bytes": 9751,
+    "sha256": "e35cbbdfed3c6172b55704727fb845a0720d3d8ab59a7222df64f54cb7650158"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/GlitterCardBack-SVGComponent.a9075c8f44435e89.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/GlitterCardBack-SVGComponent.a9075c8f44435e89.js",
+    "bytes": 10349,
+    "sha256": "85654d9198bca11d85262e03dbca0d207b4b8e267e97b3dedbfbac0caac778a7"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/GlowInTheDarkCard-SVGComponent.818d2c828f15bd04.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/GlowInTheDarkCard-SVGComponent.818d2c828f15bd04.js",
+    "bytes": 1036,
+    "sha256": "8e610e181fe90c549616cad97fabc96ccefbaff22a4daeef05d7442769966590"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/GlowInTheDarkCardBack-SVGComponent.6c06453c7ad2798c.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/GlowInTheDarkCardBack-SVGComponent.6c06453c7ad2798c.js",
+    "bytes": 3055,
+    "sha256": "94fa169afb1018b7cb90505c52f3581279ace40a4326e3554d8d1616db85a2ce"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/HoloCard-SVGComponent.c4a042413805a026.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/HoloCard-SVGComponent.c4a042413805a026.js",
+    "bytes": 32022,
+    "sha256": "91cea948b629149fbd5b9ff537676530c532b155191292c73ca7c4ee9161d79a"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/HoloCardBack-SVGComponent.30ca386e04cd33d4.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/HoloCardBack-SVGComponent.30ca386e04cd33d4.js",
+    "bytes": 25532,
+    "sha256": "988cb63a6dee1ae87c6466245c4a470bca942392e0207ec9122037c6ad809d3c"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/HundredThievesCard-SVGComponent.67c45fe8dc21b23d.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/HundredThievesCard-SVGComponent.67c45fe8dc21b23d.js",
+    "bytes": 60358,
+    "sha256": "a24d001d2dd9e055740b236970f2805e1c149ee91b050c245dc1c0f0a44f8a35"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/HundredThievesCardBack-SVGComponent.4b67fb8f16e6bfb0.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/HundredThievesCardBack-SVGComponent.4b67fb8f16e6bfb0.js",
+    "bytes": 3014,
+    "sha256": "3293dca31527c08d85c4ab72c6f70b1a4eeb57858bab4e8bf0355578f0d9822f"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/MoodCard-SVGComponent.e876da3d35be6767.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/MoodCard-SVGComponent.e876da3d35be6767.js",
+    "bytes": 12053,
+    "sha256": "496238ce2b920132bc9ce3523cbe32994a07c39425d5a197cc8aa52bf8745f09"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/MoodCardBack-SVGComponent.7943463df8c597fb.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/MoodCardBack-SVGComponent.7943463df8c597fb.js",
+    "bytes": 13585,
+    "sha256": "068fc29482ce95ada5b61e2c65235555fe3d5fa7d210508f38a992441815389a"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/PinkCard-SVGComponent.4f3c1ed87a805d7e.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/PinkCard-SVGComponent.4f3c1ed87a805d7e.js",
+    "bytes": 1042,
+    "sha256": "dfe0fb3948025aabb7e0fe0c5ac4b8c58dd617bffb96db7eb34914a48f46c109"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/PinkCardBack-SVGComponent.d93c28978afff401.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/PinkCardBack-SVGComponent.d93c28978afff401.js",
+    "bytes": 3049,
+    "sha256": "efea069ef561b72f927666480437528e8bab103a28a3dfd917af016cdf6ed3a5"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/ShantellMartinCard-SVGComponent.c14f6f9750be6b46.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/ShantellMartinCard-SVGComponent.c14f6f9750be6b46.js",
+    "bytes": 1020,
+    "sha256": "d64b9013327d90f0a47f54302e269f05165f8db440e7b743cdc1b08e9a90c174"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/ShantellMartinCardBack-SVGComponent.f2575f90535abbc8.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/ShantellMartinCardBack-SVGComponent.f2575f90535abbc8.js",
+    "bytes": 3158,
+    "sha256": "05c21f4e3623f0d67134e2471de045235b2d6050dc833bd7ed5b0b13e5ddf94c"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/TortoiseCard-SVGComponent.7e402933561e6182.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/TortoiseCard-SVGComponent.7e402933561e6182.js",
+    "bytes": 42194,
+    "sha256": "70275712dfd2cce696b25d284ab4e25d90831b2b5056c23bf8e34a677d082ceb"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/TortoiseCardBack-SVGComponent.4f9837056f329a7d.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/TortoiseCardBack-SVGComponent.4f9837056f329a7d.js",
+    "bytes": 3926,
+    "sha256": "5ea0b19e092e23473b4b3f20551ab55f97eaba381ee0028d36f1b10f04dea49d"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/WhiteCard-SVGComponent.7e4c24e18cd5c56c.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/WhiteCard-SVGComponent.7e4c24e18cd5c56c.js",
+    "bytes": 1044,
+    "sha256": "e51866d374361403927d71166ff164cdc74b1204a66bf703047df47650ffecd4"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/WhiteCardBack-SVGComponent.803dab078d598466.js",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/WhiteCardBack-SVGComponent.803dab078d598466.js",
+    "bytes": 3051,
+    "sha256": "69ec0735f41536932905656d3e04d9263d377fa0baaa4506f3ea7b38e47e2905"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/web/account/d964d4f8766900778d7282f4b26521146f6d2785/assets/apps/i18n-assets/assets/locales/en-US/account-shell.json",
+    "path": "cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/assets/apps/i18n-assets/assets/locales/en-US/account-shell.json",
+    "bytes": 302124,
+    "sha256": "f37f54e6aa188eb15b194ae33e4296bc0b98ef46369ec99eb085f76f1af66f92"
+  },
+  {
+    "url": "https://cash-f.squarecdn.com/static/fonts/sqmarket-regular.woff2",
+    "path": "cdn/static/fonts/sqmarket-regular.woff2",
+    "bytes": 29044,
+    "sha256": "229ec17324b239127841118369b6ba49cb6acbc054be11dd6b27e68c115565c7"
+  },
+  {
+    "url": "https://cash.app/cash-app/config/stamps-config",
+    "path": "config/stamps-config.json",
+    "bytes": 385425,
+    "sha256": "5252497635ab18161c25980caf7d1f2c6514750b22f43731e888ada35b9de470"
+  },
+  {
+    "url": "https://cash.app/cash-app/postcard/get-card-theme-configs",
+    "path": "config/card-theme-configs.json",
+    "bytes": 3412,
+    "sha256": "8ee15aaa7f6a5b010adff5ba484b78f4675fddfa19752ed4bb1d5ba20404fc4d"
+  }
+]

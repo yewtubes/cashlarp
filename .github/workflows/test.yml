@@ -1,0 +1,32 @@
+name: Test and Docker build
+on:
+  push:
+  pull_request:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m unittest discover -s tests -q
+      - run: python tools/build_local.py && python tools/build_account.py
+      - run: docker build -t cashlarp:test .
+      - name: Start Docker image and check authenticated health
+        shell: bash
+        env:
+          DOMAIN: cashlarp.example.com
+        run: |
+          set -euo pipefail
+          export CASHLARP_ACCESS_PASSWORD="$(python -c 'import secrets; print(secrets.token_urlsafe(32))')"
+          docker compose up -d --build --wait --wait-timeout 120
+          curl --fail --silent --user "cashlarp:$CASHLARP_ACCESS_PASSWORD" http://127.0.0.1:3000/api/health
+          test "$(curl --silent --output /dev/null --write-out '%{http_code}' http://127.0.0.1:3000/login)" = 401
+          docker compose -f compose.yaml -f compose.host.yaml config --quiet
+      - name: Container logs
+        if: failure()
+        run: docker compose logs --no-color
+      - name: Stop containers
+        if: always()
+        run: docker compose down -v

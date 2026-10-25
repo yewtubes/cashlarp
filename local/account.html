@@ -1,0 +1,380 @@
+<!doctype html><html lang="en-US"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cashlarp</title>
+<meta name="public-path" content="/cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/">
+<style>
+      @keyframes spin {
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      body {
+        margin: 0;
+      }
+
+      .centering {
+        align-items: center;
+        display: flex;
+        height: 100dvh;
+        justify-content: center;
+      }
+
+      .loading-spinner svg {
+        animation: 1s linear 0s infinite normal none running spin;
+      }
+
+      .hidden {
+        display: none;
+      }
+    </style>
+<style>@font-face {
+  font-family: "Cash Sans";
+  src: url("/cdn/static/fonts/cashsans/v2/woff2/CashSans-Light.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cash Sans";
+  src: url("/cdn/static/fonts/cashsans/v2/woff2/CashSans-Regular.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cash Sans";
+  src: url("/cdn/static/fonts/cashsans/v2/woff2/CashSans-Medium.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cash Sans";
+  src: url("/cdn/static/fonts/cashsans/v2/woff2/CashSans-Semibold.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cash Sans";
+  src: url("/cdn/static/fonts/cashsans/v2/woff2/CashSans-Bold.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cash Sans";
+  src: url("/cdn/static/fonts/cashsans/v2/woff2/CashSans-Black.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cash Sans";
+  src: url("/cdn/static/fonts/cashsans/v2/woff2/CashSans-Extrablack.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cash Sans";
+  src: url("/cdn/static/fonts/cashsans/v2/woff2/CashSans-Extralight.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cash Sans";
+  src: url("/cdn/static/fonts/cashsans/v2/woff2/CashSans-ExtralightItalic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 200;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cash Sans";
+  src: url("/cdn/static/fonts/cashsans/v2/woff2/CashSans-LightItalic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 300;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cash Sans";
+  src: url("/cdn/static/fonts/cashsans/v2/woff2/CashSans-RegularItalic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cash Sans";
+  src: url("/cdn/static/fonts/cashsans/v2/woff2/CashSans-MediumItalic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cash Sans";
+  src: url("/cdn/static/fonts/cashsans/v2/woff2/CashSans-SemiboldItalic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cash Sans";
+  src: url("/cdn/static/fonts/cashsans/v2/woff2/CashSans-BoldItalic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cash Sans";
+  src: url("/cdn/static/fonts/cashsans/v2/woff2/CashSans-BlackItalic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 800;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cash Sans";
+  src: url("/cdn/static/fonts/cashsans/v2/woff2/CashSans-ExtrablackItalic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 900;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cash Sans Wide";
+  src: url("/cdn/static/fonts/cashsans/woff2/CashSansWide-Extlight.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cash Sans Wide";
+  src: url("/cdn/static/fonts/cashsans/woff2/CashSansWide-Light.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cash Sans Wide";
+  src: url("/cdn/static/fonts/cashsans/woff2/CashSansWide-Regular.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cash Sans Wide";
+  src: url("/cdn/static/fonts/cashsans/woff2/CashSansWide-Medium.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cash Sans Wide";
+  src: url("/cdn/static/fonts/cashsans/woff2/CashSansWide-Semibold.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cash Sans Wide";
+  src: url("/cdn/static/fonts/cashsans/woff2/CashSansWide-Bold.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cash Sans Wide";
+  src: url("/cdn/static/fonts/cashsans/woff2/CashSansWide-Black.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cash Sans Wide";
+  src: url("/cdn/static/fonts/cashsans/woff2/CashSansWide-Extblack.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cash Sans Wide";
+  src: url("/cdn/static/fonts/cashsans/woff2/CashSansWide-ExtlightItl.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 200;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cash Sans Wide";
+  src: url("/cdn/static/fonts/cashsans/woff2/CashSansWide-LightItl.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 300;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cash Sans Wide";
+  src: url("/cdn/static/fonts/cashsans/woff2/CashSansWide-RegularItl.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cash Sans Wide";
+  src: url("/cdn/static/fonts/cashsans/woff2/CashSansWide-MediumItl.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cash Sans Wide";
+  src: url("/cdn/static/fonts/cashsans/woff2/CashSansWide-SemiboldItl.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cash Sans Wide";
+  src: url("/cdn/static/fonts/cashsans/woff2/CashSansWide-BoldItl.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cash Sans Wide";
+  src: url("/cdn/static/fonts/cashsans/woff2/CashSansWide-BlackItl.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 800;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cash Sans Wide";
+  src: url("/cdn/static/fonts/cashsans/woff2/CashSansWide-ExtblackItl.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 900;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cash Sans Mono";
+  src: url("/cdn/static/fonts/cashsans/v2/woff2/CashSansMono-Extralight.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cash Sans Mono";
+  src: url("/cdn/static/fonts/cashsans/v2/woff2/CashSansMono-Light.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cash Sans Mono";
+  src: url("/cdn/static/fonts/cashsans/v2/woff2/CashSansMono-Regular.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cash Sans Mono";
+  src: url("/cdn/static/fonts/cashsans/v2/woff2/CashSansMono-Medium.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cash Sans Mono";
+  src: url("/cdn/static/fonts/cashsans/v2/woff2/CashSansMono-Semibold.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cash Sans Mono";
+  src: url("/cdn/static/fonts/cashsans/v2/woff2/CashSansMono-Bold.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cash Sans Mono";
+  src: url("/cdn/static/fonts/cashsans/v2/woff2/CashSansMono-Black.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cash Sans Mono";
+  src: url("/cdn/static/fonts/cashsans/v2/woff2/CashSansMono-Extrablack.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cash Sans Mono";
+  src: url("/cdn/static/fonts/cashsans/v2/woff2/CashSansMono-ExtralightItalic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 200;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cash Sans Mono";
+  src: url("/cdn/static/fonts/cashsans/v2/woff2/CashSansMono-LightItalic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 300;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cash Sans Mono";
+  src: url("/cdn/static/fonts/cashsans/v2/woff2/CashSansMono-RegularItalic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cash Sans Mono";
+  src: url("/cdn/static/fonts/cashsans/v2/woff2/CashSansMono-MediumItalic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cash Sans Mono";
+  src: url("/cdn/static/fonts/cashsans/v2/woff2/CashSansMono-SemiboldItalic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cash Sans Mono";
+  src: url("/cdn/static/fonts/cashsans/v2/woff2/CashSansMono-BoldItalic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cash Sans Mono";
+  src: url("/cdn/static/fonts/cashsans/v2/woff2/CashSansMono-BlackItalic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 800;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cash Sans Mono";
+  src: url("/cdn/static/fonts/cashsans/v2/woff2/CashSansMono-ExtrablackItalic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 900;
+  font-display: swap;
+}</style>
+<script>
+var cdn={"url": "/cdn", "imageUrl": "/cdn/images", "version": "d964d4f8766900778d7282f4b26521146f6d2785", "translationVersion": ""};
+var countryGuess="US",regionGuess="USA",locale="en-US",environment="",bugsnagEnvironment="",
+accessToken="sandbox-only",csrfToken="__SANDBOX_CSRF__",nsid="sandbox",atid="sandbox",context="",contextPayload="";
+var featureFlagsJson={"cash-web-arcade-migration-background": "ENABLED", "cash-frontend-product-tag-ordering": false, "cash-frontend-service-default-outage-status-message": "", "cash-web-arcade-feature-pay-and-request": "DISABLED", "cash-web-arcade-migration-cash-sans": "ENABLED", "fdic-disclosure-variation": "PREPAID_DEBITFLEX_SUTTON_BANCORP", "cash-frontend-product-card-studio-kiosk": true, "cash-frontend-product-resend-code": true, "cash-web-arcade-migration": {"cash-web-arcade-migration-avatar": "ENABLED", "cash-web-arcade-migration-apps": "ENABLED", "cash-web-arcade-migration-button": "ENABLED", "cash-web-arcade-migration-modal": "ENABLED"}, "cash-web-arcade-feature-documents": "DISABLED", "cash-frontend-product-dark-mode": true, "cash-frontend-tax-upgrade": true, "cash-web-arcade-migration-background-login": "ENABLED", "cash-frontend-product-call-referly-for-referrals": true, "cash-frontend-product-referral-information-migration-to-server-call": "ENABLED", "cash-web-account-p2p-payment-flow-client-scenario": "ENABLED", "cash-web-account-message-book": false, "cash-web-account-activity-download": true, "cash-web-account-genie-scenes": false, "cash-web-get-profile-migration": false, "cash-web-enable-risk-signal": false, "cash-web-moneybot-bash": false, "cash-web-help-center-datadog-rum-enabled": false, "cash-web-neighborhoods-local-page-v3": true, "cash-web-moneybot-focusable-insight-charts": false, "cash-web-neighborhoods-order-confirmation-upsell": false, "cash-web-account-iyp-multi-select": false, "cash-web-account-datadog-rum-enabled": false, "cash-web-help-center-datadog-rum-config-new": {"sessionSampleRateOverride": 0}, "cash-web-confirmation-claim-local-cash": false, "cash-web-moneybot-cached-session-id-timeout-seconds": 300, "cash-web-account-bills-experience": false, "cash-web-admin-datadog-rum-config": {"sessionSampleRateOverride": 0}, "cash-web-grant-flow-enable-login-close": true, "cash-web-account-cash-business-accounts-icon-update": "ENABLED", "cash-web-cashtags-oon-p2p-enabled": false, "cash-web-p2p-misdirected-payment-in-flow": "DISABLED", "cash-web-passkeys-try-login-with-passkeys-rollout": false, "cash-web-account-show-money-tab-uk": "DISABLED", "cash-web-enable-wait-for-sid": false, "cash-web-account-enable-authorize-digital-wallet-payment-blocker": true, "cash-web-account-enable-multi-allocation-blocker": true, "cash-web-account-access-token-exchange-enabled": false, "cash-web-limits-use-xp-for-btc": true, "cash-web-account-blocker-provider-v2": true, "cash-web-account-moneybot-automations-hub": false, "cash-web-login-hide-cashtag-blocker-for-uk": true, "cash-web-account-settings-show-devices": false, "cash-web-grant-flow-enable-deep-link-button": false, "cash-web-local-profile": false, "cash-web-grant-flow-enable-monochrome": true, "cash-web-account-deprecate-legacy-statements": true, "cash-web-moneybot-home-visual-field": false, "cash-web-neighborhoods-checkout-buyer-offers": false, "cash-web-deposit-redirect-enabled": false, "cash-web-domain-login": false, "cash-web-pools-enable-contributions": true, "cash-web-weak-pin-client-check": true, "cash-web-account-enable-card-studio-touch-devices": true, "cash-web-personalized-ads-enabled": true, "cash-web-account-card-studio": "ENABLED", "cash-web-bot-prompts-you": false, "cash-web-neighborhood-profiles-storefront-checkout": false, "cash-web-account-enable-tm": false, "cash-web-account-router-v2": "UNASSIGNED", "cash-web-account-taxes-banner": "DISABLED", "cash-web-account-waitlist-minicard": true, "cash-web-taxes-dynamic-applet": true, "cash-web-taxes-timeline-event-dates": {"TAX_SEASON_START": "Late Jan", "PRE_SEASON": "Dec 2026", "EMPLOYER_FORMS_SENT": "Jan 31", "POST_SEASON": "Oct 15", "EFILE_DEADLINE": "Apr 15", "INVESTMENT_FORMS_SENT": "Feb 15"}, "cash-web-account-show-if-block-employee": false, "cash-web-account-address-autocomplete": false, "cash-web-account-instrument-selection-blocker-allow-v2": true, "cash-web-account-filter-money-movement": "ENABLED", "cash-web-payment-route-common-enabled": true, "cash-web-account-waitlist-referly": true, "cash-web-confirmation-page-v2": true, "cash-web-taxes-timeline-stage": "PRE_SEASON", "cash-web-login-datadog-rum-config": {"sessionSampleRateOverride": 0}, "cash-web-taxes-datadog-rum-config": {"sessionSampleRateOverride": 0}, "cash-web-account-mweb-home": false, "cash-web-account-suggested-actions": false, "cash-web-local-profile-use-one-trust": false, "cash-web-account-cash-limits-xp": true, "cash-web-neighborhoods-enable-tm": false, "cash-web-account-moneytab": false, "cash-web-shadow-account-debit-text": false, "cash-web-active-orders": true, "cash-web-grant-flow-datadog-rum-config": {"sessionSampleRateOverride": 0}, "cash-web-account-roundup-upsells": false, "cash-web-account-settings-square-alias": false, "cash-web-enable-tm": false, "cash-web-account-safety-hub": true, "cash-web-account-edit-distributions": "ENABLED", "cash-web-neighborhood-profiles-storefront-login": false, "cash-web-account-onboarding-validator": "REQUIRE_ALL", "cash-web-account-money-page-separation": "ENABLED", "cash-web-checkout-lending-payment-options": false, "cash-web-account-profile-switching": "DISABLED", "cash-web-account-new-cash-out-endpoint": false, "cash-web-pools-datadog-rum-config": {"sessionSampleRateOverride": 0}, "cash-web-enable-sid-retry": false, "cash-web-one-trust-banner-visibility": false, "cash-web-pay-links-single-pay-cta": true, "cash-web-account-allow-international-p2p": "DISABLED", "cash-web-account-savings-fetch-sponsorship": true, "cash-web-genie-login-welcome-scene-slug": "cash-web-welcome", "cash-web-account-use-apple-pay-js-api": true, "cash-web-account-initiate-session": false, "cash-web-local-profile-datadog-rum-config": {"sessionSampleRateOverride": 0}, "cash-web-account-settings-security-lock-use-plasma": true, "cash-web-account-verify-alias-additional-help-items": false, "cash-web-account-new-sam-settings": true, "cash-web-taxes-desktop-applet": "ENABLED", "cash-web-account-bitcoin-limits": true, "cash-web-conversion-tracking": false, "cash-web-neighborhoods-multi-vertical-profile": true, "cash-web-use-v2-cdp-endpoint": true, "cash-web-neighborhoods-enable-3ds": false, "cash-web-account-message-non-interactive": true, "cash-web-neighborhoods-multi-vertical-header-v2": false, "cash-web-show-money-tab-settings": {"countries": ["US"]}, "cash-web-enable-account-sid": false, "cash-web-standalone-pages-datadog-rum-config": {"sessionSampleRateOverride": 0}, "cash-web-p2p-allow-search-new-recipients": "DISABLED", "cash-web-account-multiple-goals-paychecks-enabled": true, "cash-web-account-datadog-rum-config": {"sessionSampleRateOverride": 0}, "cash-web-account-agents": false, "cash-web-moneybot-debug-copy-session": false, "cash-web-neighborhoods-multi-vertical-confirmation": true, "cash-web-account-enable-instrument-selection-blocker-v3": false, "cash-web-taxes-article-list": {"things-to-know": true, "whats-new": true, "what-to-do-if-you-owe": true, "how-to-check-your-refund": true, "refund-tips": true, "why-cash-app-taxes": true, "what-goes-into-your-refund": true}, "cash-web-taxes-open-for-data-entry": "DISABLED", "cash-web-neighborhoods-multi-vertical-checkout": true, "cash-web-account-tag-status-display": true, "cash-web-account-enable-sid": false, "cash-web-account-enable-paychecks-stock-editing": true, "cash-web-account-webmcp": false, "cash-web-incidents": {"incidents": []}, "cash-web-account-settings-set-or-update-passcode-use-plasma": true, "cash-frontend-service-show-login-v2": false, "cash-web-moneybot-loading-delay-milliseconds": 500, "cash-web-server-driven-3d": false, "cash-web-grant-flow-disable-sign-up": true, "cash-web-follow-brand": true, "cash-web-account-savings-nux": false, "cash-web-account-locale-disclosure": true, "cash-web-account-waitlist-heart": true, "cash-web-activity-cell": true, "cash-web-taxes-btc-import-top-of-funnel": {"taxesAppletBannerCopy": "Your bitcoin tax documents are now ready to import.", "enabled": true}, "cash-web-account-paychecks-nux": true, "cash-web-p2p-allow-new-aliases": "DISABLED", "cash-web-account-settings-instrument-link-overrides": {}, "cash-web-taxes-account-switcher-version": {"minIOSAppVersion": "1.0", "minAndroidAppVersion": "1.0"}, "cash-web-passkeys-try-login-with-passkeys": "DISABLED", "cash-web-batch-cdf-events": false, "cash-web-passcode-rejection-reprompt": true, "cash-web-replace-cash-card-ui": "ENABLED", "cash-web-moneybot-background-connection": true, "cash-web-account-show-restricted-balance": false, "cash-web-cashtags-p2p-oon-pay-links": "NONE", "cash-web-enable-sitm": false, "cash-web-taxes-experience-service": true, "cash-web-support-show-search": true, "cash-web-support-datadog-rum-enabled": false, "cash-web-account-sam": "DISABLED", "cash-web-moneybot-developer-config": false, "cash-web-passkeys": "ENABLED", "cash-web-listings-enable-summary-image": false, "cash-web-grant-flow-smart-banner-ios": false, "cash-web-account-initiate-cash-out-endpoint": "ENABLED", "cash-web-account-activity-filter-domain-type": "ENABLED", "cash-web-device-details-endpoint": false, "cash-web-account-personal-data-download-endpoint": true, "cash-web-login-otp-auto-submit": true, "cash-web-cashtags-datadog-rum-config": {"sessionSampleRateOverride": 0}, "cash-web-cashtags-p2p-enable-pay-links": true, "cash-web-genie-login-welcome-enabled": false, "cash-web-login-turnstile-site-key": "", "cash-web-standalone-pools-enriched-receipt": true, "cash-web-account-taxes-entrypoint-in-sidebar-nav": "ENABLED", "cash-web-lightning-datadog-rum-config": {"sessionSampleRateOverride": 0}, "cash-web-support-datadog-rum-config": {"sessionSampleRateOverride": 0}, "cash-web-account-intelligent-applets": false, "cash-web-account-janus-contact-aliases": false, "cash-web-account-paychecks": "DISABLED", "cash-web-taxes-sam-restriction": true, "cash-web-account-ai-playground": false, "cash-web-account-pools-testing": false, "cash-web-3ds-redirect-url-test": "", "cash-web-account-show-p2p-for-uk": "UNASSIGNED", "cash-web-referly-reward-code": true};
+var experimentsJson={};
+var templateVariables={customerToken:"__SANDBOX_CUSTOMER__",worm:{countryCode:"US",region:"USA"}};
+</script>
+<script defer src="/local/preferences.js"></script><script defer src="/local/branding.js"></script><script defer src="/local/account-bridge.js"></script>
+<script defer src="/cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/runtime.a1ea354b43d18d7c.js" integrity="sha384-dfFf11MUD6HE1n9J69fEZ2+NvIfPoIBLynnj38PEsmR7zp3hJeN/fwh9qIostR8J" crossorigin="anonymous"></script>
+<script defer src="/cdn/web/account/d964d4f8766900778d7282f4b26521146f6d2785/main.fa6baaec96a82623.js" integrity="sha384-14yzTirZUZ7/pRlw+P0AzMDdG6TjpS13IJsWgXTWShLMYuAwlITCp0buAcl6yAi4" crossorigin="anonymous"></script>
+</head><body data-cashlarp="true">
+<div id="root"></div><div id="modal-root"></div>
+</body></html>

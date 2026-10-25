@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunklogin=self.webpackChunklogin||[]).push([[234],{8833:(t,e,n)=>{n.r(e),n.d(e,{Cashtag:()=>h});var i=n(83821),l=n(54380);const h=({fontData:t,inkColor:e,cashtag:n})=>(0,l.FD)("svg",{width:"358",height:"226",viewBox:"0 0 358 226",fill:"none",xmlns:"http://www.w3.org/2000/svg",children:[(0,l.Y)("defs",{children:(0,i._A)(i.uK,t)}),(0,l.Y)("text",{fill:e,fontFamily:i.uK,fontSize:16.8,fontWeight:"400",x:"337",y:"34.5",textAnchor:"end",letterSpacing:"0.005em",children:n})]})}}]);
+//# sourceMappingURL=CashtagCard-SVGComponent.1973b48deea66eb9.js.map

@@ -1,0 +1,23 @@
+services:
+  cashlarp:
+    environment:
+      CASHLARP_ACCESS_PASSWORD: ${CASHLARP_ACCESS_PASSWORD:?Run python3 tools/configure_host.py your-domain.com first}
+      CASHLARP_SECURE_COOKIES: "1"
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    environment:
+      DOMAIN: ${DOMAIN:?Set DOMAIN to a hostname you control}
+    depends_on:
+      cashlarp:
+        condition: service_healthy
+volumes:
+  caddy_data:
+  caddy_config:
