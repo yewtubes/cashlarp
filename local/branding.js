@@ -14,7 +14,7 @@
     if(!image||anchor.dataset.cashlarpBrand!=='wordmark')return;
     const path=anchor.querySelector('svg path');
     const fill=path?.getAttribute('fill')?.toLowerCase();
-    const dark=fill==='#ffffff'||fill==='#fff';
+    const dark=fill==='#ffffff'||fill==='#fff'||document.documentElement.dataset.cashlarpSeason==='halloween';
     const season=document.documentElement.dataset.cashlarpSeason==='halloween'?'halloween/':'';
     const url='/local/brand/'+season+'cashlarp-wordmark'+(dark?'-dark':'')+'.svg';
     if(image.getAttribute('src')!==url)image.src=url;

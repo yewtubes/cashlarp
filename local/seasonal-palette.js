@@ -4,7 +4,7 @@
   sheet.dataset.cashlarpPalette='true';document.head.append(sheet);
   const scope='html[data-cashlarp-season="halloween"]';
   let queued=false;
-  function orange(value) {
+  function halloween(value,property) {
     return value.replace(/#[\da-f]{8}\b|#[\da-f]{6}\b|#[\da-f]{3}\b|rgba?\([^)]*\)/gi,color=>{
       let rgb,alpha='';
       if(color[0]==='#') {
@@ -12,9 +12,15 @@
         rgb=[0,2,4].map(i=>parseInt(hex.slice(i,i+2),16));if(hex.length===8)alpha=(parseInt(hex.slice(6),16)/255).toString();
       } else {const components=color.match(/[\d.]+/g);if(!components||components.length<3)return color;rgb=components.slice(0,3).map(Number);alpha=components[3]||'';}
       const [r,g,b]=rgb;
-      if(g<65||g<r*1.18||g<b*1.15)return color;
-      const light=Math.min(r,b)>175;
-      const target=light?[255,229,205]:[245,122,24];
+      let target;
+      if(g>=65&&g>=r*1.18&&g>=b*1.15) target=[245,122,24];
+      else if(Math.max(...rgb)-Math.min(...rgb)<38){
+        const light=(r+g+b)/3;
+        if(property.includes('background')) target=light>210?[24,17,13]:light>120?[53,38,29]:light<20?[10,7,5]:null;
+        else if(property.includes('border')||property.includes('outline'))target=[93,61,39];
+        else if(property==='color'||property==='fill'||property==='stroke')target=light<140?[255,240,225]:light<220?[207,181,158]:null;
+      }
+      if(!target)return color;
       return alpha?`rgba(${target.join(',')},${alpha})`:`rgb(${target.join(',')})`;
     });
   }
@@ -25,8 +31,9 @@
         let declarations='';
         for(const property of rule.style){
           const value=rule.style.getPropertyValue(property);
-          const replacement=property==='background-color'&&/^rgb\(255,\s*255,\s*255\)$/.test(value)?'#fff8f1':orange(value);
+          const replacement=halloween(value,property);
           if(value!==replacement)declarations+=`${property}:${replacement}!important;`;
+          if(property==='background-color'&&replacement==='rgb(245,122,24)')declarations+='color:#1b1008!important;';
         }
         if(declarations)result+=rule.selectorText.split(',').map(s=>`${scope} ${s}`).join(',')+'{'+declarations+'}';
       } else if(rule.cssRules&&rule.conditionText) result+=`@media ${rule.conditionText}{${copy(rule.cssRules)}}`;

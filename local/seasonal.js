@@ -6,6 +6,8 @@
   const offset = config.serverTime - Date.now();
   const style = document.createElement('style');
   style.textContent = `
+    html[data-cashlarp-season="halloween"] body{background:#18110d!important;color:#fff0e1!important;color-scheme:dark}
+    html[data-cashlarp-season="halloween"] [data-testid^="stamp-"]{background:#fff0e1!important}
     html[data-cashlarp-season="halloween"] .cashlarp-logo{width:184px!important;height:54px!important}
     html[data-cashlarp-season="halloween"] input{accent-color:#f57a18}
     html[data-cashlarp-season="halloween"] ::selection{background:#ffd1a6;color:#20150e}
