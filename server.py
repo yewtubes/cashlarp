@@ -19,6 +19,7 @@ from http.cookies import SimpleCookie
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import urlsplit, parse_qs, quote
 import client_shell
+import profile_photos
 import compat
 import native_auth
 from server_errors import AuthError
@@ -81,6 +82,9 @@ class Store:
                 CREATE TABLE IF NOT EXISTS alias_challenges (
                     token TEXT PRIMARY KEY,user_id TEXT REFERENCES users(id),kind TEXT NOT NULL,
                     alias TEXT NOT NULL,expires INTEGER NOT NULL);
+                CREATE TABLE IF NOT EXISTS profile_photos (
+                    user_id TEXT PRIMARY KEY REFERENCES users(id),mime_type TEXT NOT NULL,
+                    digest TEXT NOT NULL,image BLOB NOT NULL);
                 CREATE TABLE IF NOT EXISTS card_designs (
                     user_id TEXT PRIMARY KEY REFERENCES users(id),theme TEXT NOT NULL,
                     include_cashtag INTEGER NOT NULL,image BLOB NOT NULL,touch_data TEXT NOT NULL);
@@ -529,6 +533,12 @@ class Store:
                 db.rollback();raise
         return self.extras(uid)
 
+    def profile_photo_url(self, uid):
+        return profile_photos.photo_url(self, uid)
+
+    def set_profile_photo(self, uid, encoded, mime_type):
+        return profile_photos.save(self, uid, encoded, mime_type)
+
     def financial_events(self,uid):
         with self.connect() as db:
             changes=[{"id":r["id"],"delta":r["amount_cents"] if r["kind"]=="add" else -r["amount_cents"],
@@ -619,6 +629,19 @@ class Handler(BaseHTTPRequestHandler):
                 self.auth();return self.send(200,{"card_themes":compat.themes()})
             if path == "/cash-app/config/stamps-config":
                 self.auth();return self.send(200,(ROOT / "capture/config/stamps-config.json").read_bytes())
+            if path in ("/favicon.ico", "/favicon.png", "/apple-touch-icon.png", "/favicon.svg"):
+                name = path.removeprefix("/")
+                return self.send(200, (ROOT / "local/brand" / name).read_bytes(), mimetypes.guess_type(name)[0] or "image/x-icon")
+            if path.startswith("/local-profile-photo/"):
+                self.auth()
+                match = re.fullmatch(r"/local-profile-photo/(sim_[a-f0-9]+)/([a-f0-9]{16})\.(png|jpg)", path)
+                if not match:
+                    raise APIError(404, "Profile photo not found")
+                with self.store.connect() as db:
+                    row = db.execute("SELECT image,mime_type FROM profile_photos WHERE user_id=? AND digest=?", (match[1], match[2])).fetchone()
+                if not row:
+                    raise APIError(404, "Profile photo not found")
+                return self.send(200, row["image"], row["mime_type"])
             if path.startswith("/cdn/local-card-design/"):
                 path=path.removeprefix("/cdn")
             if path.startswith("/local-card-design/"):
@@ -708,7 +731,7 @@ class Handler(BaseHTTPRequestHandler):
             if origin and urlsplit(origin).netloc != self.headers.get("Host"):
                 raise APIError(403, "Cross-origin requests are not allowed")
             length = int(self.headers.get("Content-Length", "0"))
-            body_limit=5000000 if urlsplit(self.path).path=="/2.0/cash/set-card-customization" else 16384
+            body_limit=5000000 if urlsplit(self.path).path in ("/2.0/cash/set-card-customization", "/2.0/cash/set-profile-photo") else 16384
             if not 0 < length <= body_limit:
                 raise APIError(400, "A small JSON request body is required")
             try:
@@ -736,7 +759,7 @@ class Handler(BaseHTTPRequestHandler):
                     if native is not None:
                         result,headers=native
                         return self.send(200,result,extra=headers)
-            if path in ("/2.0/cash/cdp-track-event","/2.0/cash/record-completed-journey","/2.0/cash/record-completed-journey-batch","/cash-app/user-journeys/record-completed-journey"):
+            if path in ("/2.0/cash/web/cdp", "/2.0/cash/cdp-track-event","/2.0/cash/record-completed-journey","/2.0/cash/record-completed-journey-batch","/cash-app/user-journeys/record-completed-journey"):
                 return self.send(200,{})
             if path == "/api/register":
                 user = self.store.register(data.get("username"), data.get("password"), data.get("display_name"))

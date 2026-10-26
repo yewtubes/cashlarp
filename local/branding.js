@@ -3,9 +3,9 @@
   const style = document.createElement('style');
   style.textContent = `
     .cashlarp-brand{background-color:transparent!important;flex-shrink:0}
-    .cashlarp-brand svg,.cashlarp-brand img:not(.cashlarp-logo){display:none!important}
+    .cashlarp-original-logo{display:none!important}
     .cashlarp-logo{display:block!important;width:148px!important;height:36px!important;object-fit:contain!important;pointer-events:none!important}
-    .cashlarp-icon .cashlarp-logo{width:40px!important;height:40px!important}
+
   `;
   document.head.append(style);
   let queued = false;
@@ -23,12 +23,13 @@
     document.title='Cashlarp';
     const anchors=new Set(document.querySelectorAll('a[aria-label="Cash App Logo"],a[aria-label="Link to home page"],a[data-cashlarp-brand]'));
     for(const logo of document.querySelectorAll('svg[aria-label="Cash App Logo"],svg[aria-label="Cashlarp Logo"]')){
-      const link=logo.closest('a');if(link)anchors.add(link);
+      const slot=logo.closest('a')||logo.parentElement;if(slot&&slot!==document.body)anchors.add(slot);
     }
     for (const anchor of anchors) {
       if(anchor.dataset.cashlarpBrand && anchor.querySelector('.cashlarp-logo')){syncLogo(anchor);continue;}
-      const login=anchor.getAttribute('aria-label')==='Link to home page';
+      const login=false;
       const original=anchor.querySelector('svg');
+      if(original)original.classList.add('cashlarp-original-logo');
       anchor.dataset.cashlarpBrand=login?'icon':'wordmark';
       anchor.classList.add('cashlarp-brand',login?'cashlarp-icon':'cashlarp-wordmark');
       anchor.setAttribute('aria-label',login?'Cashlarp home':'Cashlarp Logo');

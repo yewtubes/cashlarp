@@ -19,7 +19,8 @@ ACCOUNT_FLAGS = {
     "cash-web-account-sam": "DISABLED",
     "cash-web-account-paychecks": "DISABLED",
     "cash-web-account-genie-scenes": False,
-    "cash-web-account-savings-nux": False,
+    "cash-web-account-savings-nux": True,
+    "cash-web-account-savings-fetch-sponsorship": False,
     "cash-web-account-settings-show-devices": False,
     "cash-web-device-details-endpoint": False,
     "cash-web-account-webmcp": False,
@@ -38,6 +39,8 @@ def document(application):
     source = source.replace("https://cash-images-f.squarecdn.com", "/cdn/images")
     source = re.sub(r'<link[^>]+rel="canonical"[^>]*>', "", source)
     source = re.sub(r'<title>.*?</title>', '<title>Cashlarp</title>', source)
+    source = re.sub(r'<link\b[^>]*rel="(?:icon|shortcut icon|apple-touch-icon)"[^>]*>', "", source)
+    source = source.replace("</head>", '<link rel="icon" type="image/png" sizes="64x64" href="/favicon.png"><link rel="shortcut icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"></head>', 1)
     source = source.replace("Sign in to your Cash App account.", "Sign in to your Cashlarp account.")
     source = re.sub(r'recaptchaKeyId="[^\"]*"', 'recaptchaKeyId=""', source)
     bridge = "bridge.js"

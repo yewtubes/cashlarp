@@ -30,7 +30,8 @@ const {chromium} = require('playwright');
   }
   async function submit(value, rpc) {
     const response = page.waitForResponse(r => new URL(r.url()).pathname === rpc, {timeout:20000});
-    await page.locator('input:visible').first().fill(value);
+    response.catch(()=>{});
+    await page.locator('input:visible:not([type=radio]):not([type=checkbox]):not([type=file])').first().fill(value);
     const button = page.getByRole('button', {name:/^(Continue|Next|Log in|Sign in)$/i}).first();
     if (await button.isVisible() && await button.isEnabled()) await button.click();
     const result = await response;
@@ -59,9 +60,11 @@ const {chromium} = require('playwright');
       if(response.status()>=400) report.failedRequests.push({url:response.url(),status:response.status()});
     });
     await page.goto(base+'/account/card');
-    await page.locator('input:visible').first().waitFor();
+    await page.locator('input:visible:not([type=radio]):not([type=checkbox]):not([type=file])').first().waitFor();
     assert(new URL(page.url()).pathname==='/login');
     await record('01-original-login');
+    await page.getByRole('link',{name:'Create account',exact:true}).or(page.getByRole('button',{name:'Create account',exact:true})).click();
+    await page.getByRole('radio',{name:'Email',exact:true}).check();
     await submit('nativeqa@example.com','/2.0/cash/register-email');
     await record('02-original-verification');
     await submit('123456','/2.0/cash/verify-email');
@@ -73,7 +76,7 @@ const {chromium} = require('playwright');
     await page.locator('a[href="/account/money"]').first().waitFor();
     const profile = await context.request.get(base+'/api/me');
     const identity = (await profile.json()).user.id;
-    for (const route of ['money','activity','pay-and-request','card','bitcoin','settings','documents']) {
+    for (const route of ['money','activity','pay-and-request','card','bitcoin','savings','settings','documents']) {
       await page.goto(base+'/account/'+route);
       await page.locator('#root a').first().waitFor();
       await page.waitForLoadState('networkidle');
@@ -81,13 +84,30 @@ const {chromium} = require('playwright');
       assert(text.length>100,route+' did not render');
       assert(!text.includes('$kotik') && !text.includes('$friend'), 'Demo accounts leaked into '+route);
       assert(!text.includes('Something went wrong'),route+' rendered an error');
+      const broken=await page.locator('img').evaluateAll(imgs=>imgs.filter(i=>i.getBoundingClientRect().width>0&&i.complete&&i.naturalWidth===0).map(i=>i.src));
+      assert.equal(broken.length,0,'Broken images on '+route+': '+broken.join(', '));
+      if(route==='activity'){assert(await page.getByTestId('savings-balance-card').isVisible());assert.equal(await page.getByTestId('bitcoin-balance-card').count(),0);}
     }
+    await page.goto(base+'/account/settings');
+    await page.getByLabel('Upload profile photo',{exact:true}).first().setInputFiles(path.join(root,'local/brand/apple-touch-icon.png'));
+    await page.getByTestId('profile-photo-modal-buttons').getByRole('button',{name:'Save',exact:true}).click();
+    await page.waitForLoadState('networkidle');
+    await page.reload();
+    await page.locator('img[src*="/local-profile-photo/"]').first().waitFor();
+    await record('profile-photo-saved');
+    await page.goto(base+'/account/dl/view/change-card-design/WHITE');
+    await page.getByTestId('card-option-button-sim_white').waitFor();
+    await page.getByTestId('card-option-button-sim_white').click();
+    await page.waitForLoadState('networkidle');
+    await record('original-card-customization');
+    await page.goto(base+'/account/settings');
     const logout = page.getByRole('button',{name:/^(Sign out|Log out)$/i}).or(page.getByRole('link',{name:/^(Sign out|Log out)$/i}));
     await logout.first().click();
     await page.waitForURL(/\/login/,{timeout:20000});
-    await page.locator('input:visible').first().waitFor();
+    await page.locator('input:visible:not([type=radio]):not([type=checkbox]):not([type=file])').first().waitFor();
     assert.equal((await context.request.get(base+'/api/me')).status(),401);
     await record('05-original-signed-out');
+    await page.getByRole('radio',{name:'Email',exact:true}).check();
     await submit('nativeqa@example.com','/2.0/cash/register-email');
     await submit('123456','/2.0/cash/verify-email');
     await page.waitForURL(/\/account\//,{timeout:20000});

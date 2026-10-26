@@ -32,6 +32,7 @@ def profile(user, extra=None, preferences=None, settings=None):
         "capabilities":[],"notifications":[],
     }
     if settings:
+        result["photo_url"]=settings.get("photo_url", "")
         for key in ("aliases","postal_address","incoming_request_policy","has_passcode","require_passcode_confirmation"):
             result[key]=settings[key]
         result["notification_preferences"]=[{"alias":{"type":a["type"],"canonical_text":a["canonical_text"]},"enabled":settings.get("contact_preferences",{}).get(a["type"]+":"+a["canonical_text"],False)} for a in settings["aliases"]]
@@ -170,6 +171,12 @@ def read_rpc(path, data, store, uid):
     if setting_result is not None:return setting_result
     user=store.user(uid)
     config=store.settings(uid)
+    config["photo_url"]=store.profile_photo_url(uid)
+    if path == "/2.0/cash/set-profile-photo":
+        return {"image_url":store.set_profile_photo(uid,data.get("image_data"),data.get("mime_type"))}
+    if path == "/2.0/cash/clear-profile-photo":
+        with store.connect() as db:db.execute("DELETE FROM profile_photos WHERE user_id=?",(uid,))
+        return {"image_url":""}
     extra=store.extras(uid)
     preferences=store.preferences(uid)
     needs_pin=path in ("/cash-app/cash-in/v1.0/add-cash","/cash-app/out/v1.0/initiate-cash-out","/cash-app/crypto/invest/exchange","/2.0/cash/confirm-payment") or (path=="/2.0/cash/initiate-payment" and data.get("orientation")=="CASH")
@@ -226,19 +233,24 @@ def read_rpc(path, data, store, uid):
     if path == "/2.0/cash/web/profile":
         return {"profile":profile(user,extra,preferences,config),"issued_cash_card":card(user,extra),"bitcoin_balance":{"snapshot":{"amount":extra["btc_sats"]}},"investing_portfolio_summary":{"has_portfolio":False}}
     if path == "/cash-app/savings/get-savings-overview":
-        return {"customer":{"customer_status":"SAVINGS_CUSTOMER_STATUS_INELIGIBLE"}}
+        return {"customer":{"customer_status":"SAVINGS_CUSTOMER_STATUS_ADOPTED"},
+                "balance":{"amount":money(0)},
+                "interest_rate":{"apy_rate":0,"interest_yield_status":"INTEREST_YIELD_STATUS_MANUALLY_DISABLED","interest_tiers_apy_rates":{"standard_interest_apy_rate":0,"enhanced_interest_apy_rate":0}},
+                "versioned_savings_folders":{"v2_folders":[{"token":"sim_savings_"+uid,"balance":money(0),"general_folder":{}}]},
+                "config":{"max_number_of_goals":1,"savings_copy":{"default_savings_folder_label":"Savings","goal_complete_text":"Goal met!"}},
+                "automation_section":{"title":"Save automatically","references":[]}}
     if path == "/cash-app/business-accounts/get-c4b-eligibility":
-        return {"money_taxes_applet":{"is_eligible":False},"money_btc_applet":{"is_eligible":True}}
+        return {"money_taxes_applet":{"is_eligible":False},"money_btc_applet":{"is_eligible":False}}
     if path == "/2.0/cash/get-historical-exchange-data":
         return {"price_history":{"price_ticks":[{"price_cents":10000000,"time":1700000000},{"price_cents":10000000,"time":1800000000}]}}
-    if path == "/2.0/cash/get-or-create-savings-balance":
-        return {"balance":{"amount":money(0)},"status":"NOT_ADOPTED"}
+    if path in ("/2.0/cash/get-or-create-savings-balance", "/cash-app/savings/get-or-create-savings-balance"):
+        return {"balance":{"amount":money(0)},"status":"ADOPTED"}
     if path in ("/2.0/cash/compute-disclosure-sync-value","/cash-app/banking-tab/v1/compute-disclosure-sync-value"):
         return {"sync_value":"sandbox","response_context":{"sync_entities_data":{"entities":[{"sync_value":{"fdic_insurance_customer_status":{}}}]}}}
     if path == "/2.0/cash/suggested-recipients":
         with store.connect() as db:
             users=db.execute("SELECT id,username,display_name FROM users WHERE id!=? ORDER BY username",(uid,)).fetchall()
-        return {"suggested_recipients":[{"id":u["id"],"full_name":u["display_name"],"cashtag":store.preferences(u["id"])["cashtag"],"country_code":"US","email":u["username"]+"@example.com","is_business":False} for u in users]}
+        return {"suggested_recipients":[{"id":u["id"],"full_name":u["display_name"],"cashtag":store.preferences(u["id"])["cashtag"],"country_code":"US","email":u["username"]+"@example.com","is_business":False,"profile_photo_url":store.profile_photo_url(u["id"])} for u in users]}
     if path == "/cash-app/cash-in/v1.0/enqueue-cash-in-requirements":
         return {}
     if path == "/cash-app/banking-statements/statements/list":
