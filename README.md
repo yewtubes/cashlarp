@@ -6,7 +6,7 @@ Cashlarp branding replaces the visible wordmarks. The old fixed banner is remove
 
 ## Halloween branding
 
-The Halloween 2026 theme adds translucent pumpkin accents, a witch-hat Cashlarp wordmark and a pumpkin favicon. It is active through October 31 and returns to the default branding automatically at **November 1, 2026, 00:00 UTC**, including already-open tabs. The server supplies the clock; browser timezones do not affect the cutoff. It does not repeat next year. The schedule is in `seasonal_branding.py`; `python3 tools/build_halloween.py` rebuilds its transparent SVG artwork.
+The Halloween 2026 theme uses an image-generated orange Cashlarp icon with a witch hat and pumpkins grouped at its base, orange UI accents, warm surfaces and matching favicon. It is active through October 31 and returns to the default branding automatically at **November 1, 2026, 00:00 UTC**, including already-open tabs. The server supplies the clock; browser timezones do not affect the cutoff. It does not repeat next year. The schedule is in `seasonal_branding.py`; `python3 tools/build_halloween.py` packages the generated icon and transparent wordmarks (Pillow is needed only to rebuild artwork).
 
 ## Quick start
 

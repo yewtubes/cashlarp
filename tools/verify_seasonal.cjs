@@ -20,7 +20,7 @@ function run(initial) {
 }
 const page=run('2026-10-31T23:59:59Z');
 assert.equal(page.document.documentElement.dataset.cashlarpSeason,'halloween');
-assert.equal(page.decoration.children.length,2);
+assert.equal(page.decoration,undefined); // pumpkins are part of the generated logo, never floating overlays
 assert(page.icons.every(i=>i.attrs.href.endsWith('/halloween/favicon.svg')));
 assert.equal(page.timer.delay,1000);
 page.setTime('2026-11-01T00:00:00Z');

@@ -68,6 +68,7 @@ def document(application):
         bridge = "account-bridge.js"
     adapters = ('<script>window.cashlarpSeasonalConfig=__CASHLARP_SEASONAL_CONFIG__;</script>'
                 '<script defer src="/local/seasonal.js"></script>'
+                '<script defer src="/local/seasonal-palette.js"></script>'
                 '<script defer src="/local/preferences.js"></script>'
                 '<script defer src="/local/branding.js"></script>'
                 '<script defer src="/local/' + bridge + '"></script>')

@@ -6,11 +6,11 @@
   const offset = config.serverTime - Date.now();
   const style = document.createElement('style');
   style.textContent = `
-    .cashlarp-pumpkins{position:fixed;inset:0;pointer-events:none!important;z-index:999;overflow:hidden}
-    .cashlarp-pumpkins img{position:absolute;bottom:18px;width:124px;height:124px;opacity:.12;pointer-events:none!important;user-select:none}
-    .cashlarp-pumpkins img:first-child{left:14px;transform:rotate(-14deg)}
-    .cashlarp-pumpkins img:last-child{right:18px;transform:rotate(12deg);width:94px;height:94px}
-    @media(max-width:640px){.cashlarp-pumpkins img:first-child{width:64px;height:64px;left:6px;bottom:8px;opacity:.09}.cashlarp-pumpkins img:last-child{display:none}}
+    html[data-cashlarp-season="halloween"] .cashlarp-logo{width:184px!important;height:54px!important}
+    html[data-cashlarp-season="halloween"] input{accent-color:#f57a18}
+    html[data-cashlarp-season="halloween"] ::selection{background:#ffd1a6;color:#20150e}
+    html[data-cashlarp-season="halloween"] [fill="#00D64B" i],html[data-cashlarp-season="halloween"] [fill="#00E013" i]{fill:#ff7a18!important}
+    html[data-cashlarp-season="halloween"] #app-root .cashlarp-logo{width:240px!important;height:68px!important}
   `;
   document.head.append(style);
   let timer;
@@ -21,19 +21,6 @@
     const season = active ? 'halloween' : '';
     if (document.documentElement.dataset.cashlarpSeason !== season) {
       document.documentElement.dataset.cashlarpSeason = season;
-      document.querySelector('.cashlarp-pumpkins')?.remove();
-      if (active) {
-        const decorations = document.createElement('div');
-        decorations.className = 'cashlarp-pumpkins';
-        decorations.setAttribute('aria-hidden','true');
-        for (let i=0;i<2;i++) {
-          const pumpkin = new Image();
-          pumpkin.src = '/local/brand/halloween/pumpkin.svg';
-          pumpkin.alt = ''; pumpkin.draggable = false;
-          decorations.append(pumpkin);
-        }
-        document.body.append(decorations);
-      }
       for (const icon of document.querySelectorAll('link[rel="icon"],link[rel="shortcut icon"]')) {
         if (!icon.dataset.cashlarpDefaultHref) icon.dataset.cashlarpDefaultHref = icon.getAttribute('href');
         if (!icon.dataset.cashlarpDefaultType) icon.dataset.cashlarpDefaultType = icon.getAttribute('type') || '';

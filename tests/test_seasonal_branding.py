@@ -37,5 +37,5 @@ class SeasonalBrandingTests(unittest.TestCase):
             root=ElementTree.fromstring(path.read_text())
             self.assertEqual('{http://www.w3.org/2000/svg}svg',root.tag)
             self.assertNotIn('https://',path.read_text())
-        pumpkin=(folder/'pumpkin.svg').read_text()
-        self.assertNotIn('<rect',pumpkin)
+        self.assertTrue((folder/'icon-generated.png').is_file())
+        self.assertNotIn('#00D64B',(folder/'cashlarp-wordmark.svg').read_text())

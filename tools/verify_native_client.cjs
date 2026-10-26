@@ -70,8 +70,22 @@ const {chromium} = require('playwright');
       return {active,theme:document.documentElement.dataset.cashlarpSeason,logo:document.querySelector('.cashlarp-logo')?.getAttribute('src'),pumpkins:document.querySelectorAll('.cashlarp-pumpkins img').length};
     });
     assert.equal(seasonal.theme,seasonal.active?'halloween':'');
-    assert.equal(seasonal.pumpkins,seasonal.active?2:0);
+    assert.equal(seasonal.pumpkins,0);
     assert.equal(seasonal.logo.includes('/halloween/'),seasonal.active);
+    if(seasonal.active){
+      await page.evaluate(()=>{
+        const style=document.createElement('style');style.id='seasonal-probe-style';style.textContent='.cashlarp-season-probe{background-color:#00e013}';document.head.append(style);
+        const probe=document.createElement('div');probe.id='seasonal-probe';probe.className='cashlarp-season-probe';probe.style.position='fixed';probe.style.left='-10000px';document.body.append(probe);
+      });
+      await page.waitForFunction(()=>getComputedStyle(document.getElementById('seasonal-probe')).backgroundColor==='rgb(245, 122, 24)');
+      await page.evaluate(()=>{document.documentElement.dataset.cashlarpSeason='';document.dispatchEvent(new Event('cashlarp:seasonchange'));});
+      await page.waitForFunction(()=>getComputedStyle(document.getElementById('seasonal-probe')).backgroundColor==='rgb(0, 224, 19)');
+      assert(!(await page.locator('.cashlarp-logo').first().getAttribute('src')).includes('/halloween/'));
+      await page.evaluate(()=>{document.documentElement.dataset.cashlarpSeason='halloween';document.dispatchEvent(new Event('cashlarp:seasonchange'));});
+      await page.waitForFunction(()=>getComputedStyle(document.getElementById('seasonal-probe')).backgroundColor==='rgb(245, 122, 24)');
+      await page.evaluate(()=>{document.getElementById('seasonal-probe').remove();document.getElementById('seasonal-probe-style').remove();});
+    }
+
 
     await page.getByText('Create account',{exact:true}).click();
     await page.getByText('Email',{exact:true}).click();
