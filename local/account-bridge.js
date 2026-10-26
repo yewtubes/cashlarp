@@ -61,6 +61,27 @@
                         finally { renderer?.dispose(); renderer?.forceContextLoss(); }
                       }
                       if (window.__sandboxDesignerActive && !designerSupports3D) throw new Error("Use original CardStudio 2D fallback");
+                      const config = args[0];
+                      if (config?.cardTheme?.id === "CASHLARP") {
+                        // Reuse the native chip, personalization and reverse layout.
+                        // Unknown theme ids otherwise silently receive the black texture.
+                        const textures = await getOriginal()({...config,cardTheme:{...config.cardTheme,id:"WHITE"},reusableTextures:{}});
+                        const art = await (await fetch("/local/card-themes/cashlarp-art.svg")).text();
+                        const svgMarkup = art.replace(/(<svg[^>]*>)/,"$1<rect width=\"1024\" height=\"640\" fill=\"#00D64B\"/>");
+                        const width = textures.front.image.width;
+                        const height = textures.front.image.height;
+                        textures.front = await require(87628).I({svgMarkup,width,height});
+                        const canvas = document.createElement("canvas");
+                        canvas.width = textures.back.image.width; canvas.height = textures.back.image.height;
+                        const context = canvas.getContext("2d");
+                        context.drawImage(textures.back.image,0,0);
+                        context.globalCompositeOperation = "multiply";
+                        context.fillStyle = "#00D64B"; context.fillRect(0,0,canvas.width,canvas.height);
+                        const back = new (require(47158).CanvasTexture)(canvas);
+                        require(28966).K(back);
+                        textures.back = back;
+                        return textures;
+                      }
                       return getOriginal()(...args);
                     };
                     return target.d(targetExports, { ...definitions, U: () => loadTextures });
