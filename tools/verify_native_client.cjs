@@ -126,6 +126,7 @@ const {chromium} = require('playwright');
       await page.getByRole('button',{name:'Continue',exact:true}).click();
       const result=await moved;
       assert.equal(result.status(),200,'Native Savings transfer failed: '+await result.text());
+      await page.getByRole('button',{name:'Done',exact:true}).click({timeout:10000});
       await page.goto(base+'/account/savings');
       await page.getByText('$'+(expected/100).toFixed(2),{exact:true}).first().waitFor();
       await page.reload();
