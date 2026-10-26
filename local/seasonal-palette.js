@@ -5,9 +5,10 @@
   const scope='html[data-cashlarp-season="halloween"]';
   let queued=false;
   function halloween(value,property) {
-    return value.replace(/#[\da-f]{8}\b|#[\da-f]{6}\b|#[\da-f]{3}\b|rgba?\([^)]*\)/gi,color=>{
+    return value.replace(/#[\da-f]{8}\b|#[\da-f]{6}\b|#[\da-f]{3}\b|rgba?\([^)]*\)|\b(?:white|black)\b/gi,color=>{
       let rgb,alpha='';
-      if(color[0]==='#') {
+      if(/^(white|black)$/i.test(color))rgb=color.toLowerCase()==='white'?[255,255,255]:[0,0,0];
+      else if(color[0]==='#') {
         let hex=color.slice(1);if(hex.length===3)hex=[...hex].map(c=>c+c).join('');
         rgb=[0,2,4].map(i=>parseInt(hex.slice(i,i+2),16));if(hex.length===8)alpha=(parseInt(hex.slice(6),16)/255).toString();
       } else {const components=color.match(/[\d.]+/g);if(!components||components.length<3)return color;rgb=components.slice(0,3).map(Number);alpha=components[3]||'';}
@@ -16,7 +17,7 @@
       if(g>=65&&g>=r*1.18&&g>=b*1.15) target=[245,122,24];
       else if(Math.max(...rgb)-Math.min(...rgb)<38){
         const light=(r+g+b)/3;
-        if(property.includes('background')) target=light>210?[24,17,13]:light>120?[53,38,29]:light<20?[10,7,5]:null;
+        if(property.includes('background')||property.includes('shadow')) target=light>245?[24,17,13]:light>120?[53,38,29]:light<20?[10,7,5]:null;
         else if(property.includes('border')||property.includes('outline'))target=[93,61,39];
         else if(property==='color'||property==='fill'||property==='stroke')target=light<140?[255,240,225]:light<220?[207,181,158]:null;
       }
