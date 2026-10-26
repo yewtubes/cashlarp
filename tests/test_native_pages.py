@@ -105,6 +105,10 @@ class NativePageTests(unittest.TestCase):
         self.rpc("/2.0/cash/set-full-name", {"full_name": "New Player"})
         self.rpc("/2.0/cash/set-cashtag", {"cashtag": "mynewtag"})
         self.assertEqual(200, self.request("GET", "/account/money")[0])
+        for native_path in ("/dl/flow/CHANGE_CARD_DESIGN", "/web/view/savings/activity", "/treehouse/activity/receipt/test"):
+            status, _, body = self.request("GET", native_path)
+            self.assertEqual(200, status)
+            self.assertIn(b"main.fa6baaec96a82623.js", body)
         self.assertEqual("/account/card", self.request("GET", "/login?redirect=/account/card")[1]["Location"])
         for target in ("https://elsewhere.invalid", "//elsewhere.invalid", "/account/\\evil", "/account/x%0D%0AInjected:yes"):
             self.assertEqual("/account/money", self.request("GET", "/login?redirect=" + target)[1]["Location"])

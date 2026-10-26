@@ -26,6 +26,7 @@
                       if (props.option?.card_theme?.id !== "CASHLARP") return React.createElement(original(),props);
                       const option = {...props.option,card_theme:{...props.option.card_theme,id:"TAP_DEVICE_TRIAL_ID"}};
                       const element = original()({...props,option});
+                      if (props.hideBackground) return element;
                       const container = element.props.children;
                       const artwork = React.createElement("img",{src:"/local/card-themes/cashlarp-art.svg",alt:"",style:{position:"absolute",inset:0,width:"100%",height:"100%",borderRadius:"inherit",pointerEvents:"none"}});
                       return React.cloneElement(element,{},React.cloneElement(container,{},artwork,...React.Children.toArray(container.props.children)));

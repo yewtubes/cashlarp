@@ -705,10 +705,10 @@ class Handler(BaseHTTPRequestHandler):
                     session = None
                 if session and not self.store.settings(session["user_id"]).get("onboarding_stage"):
                     requested = parse_qs(urlsplit(self.path).query).get("redirect", ["/account/money"])[0]
-                    target = requested if requested.startswith("/account/") and not any(c in requested for c in ("\\", "\r", "\n")) else "/account/money"
+                    target = requested if requested.startswith(("/account/", "/dl/", "/web/", "/treehouse/")) and not any(c in requested for c in ("\\", "\r", "\n")) else "/account/money"
                     return self.send(302, b"", extra={"Location": target})
                 return self.send(200, client_shell.login_document(), "text/html; charset=utf-8")
-            if path == "/account" or path.startswith("/account/"):
+            if path == "/account" or path.startswith(("/account/", "/dl/", "/web/", "/treehouse/")):
                 try:
                     session = self.auth()
                 except APIError:

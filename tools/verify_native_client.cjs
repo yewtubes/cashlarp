@@ -19,7 +19,7 @@ const {chromium} = require('playwright');
   let serverLog = '', browser, page;
   server.stdout.on('data', b => {serverLog += b;});
   server.stderr.on('data', b => {serverLog += b;});
-  const report = {pages:[], errors:[], failedRequests:[], externalRequests:[], screenshots:[]};
+  const report = {pages:[], errors:[], failedRequests:[], externalRequests:[], screenshots:[], flowInitiations:[]};
   async function record(name) {
     const snapshot = await page.locator('body').innerText();
     report.pages.push({name,url:page.url(),text:snapshot.slice(0,6000),controls:await page.locator('button,a,label,input,[role=button]').evaluateAll(nodes=>nodes.filter(n=>n.getBoundingClientRect().width>0).map(n=>({tag:n.tagName,role:n.getAttribute('role'),type:n.getAttribute('type'),label:n.getAttribute('aria-label'),placeholder:n.getAttribute('placeholder'),text:n.textContent.trim().slice(0,80)})))});
@@ -53,6 +53,7 @@ const {chromium} = require('playwright');
     page.on('pageerror', error => report.errors.push(error.message));
     page.on('request', request => {
       const url=request.url();
+      if(new URL(url).pathname==='/2.0/cash/get-flow'){try{const flow=JSON.parse(request.postData()||'{}').initiation_data;if(flow&&!report.flowInitiations.includes(flow))report.flowInitiations.push(flow);}catch{}}
       if (!url.startsWith(base+'/') && !url.startsWith('data:') && !url.startsWith('blob:')) report.externalRequests.push(url);
     });
     page.on('response', response => {
@@ -95,7 +96,7 @@ const {chromium} = require('playwright');
     await page.reload();
     await page.locator('img[src*="/local-profile-photo/"]').first().waitFor();
     await record('profile-photo-saved');
-    await page.goto(base+'/account/dl/view/change-card-design/WHITE');
+    await page.goto(base+'/dl/view/change-card-design/WHITE');
     await page.getByTestId('card-option-button-sim_cashlarp').waitFor();
     await page.getByTestId('card-option-button-sim_cashlarp').click();
     await page.waitForLoadState('networkidle');
@@ -125,6 +126,7 @@ const {chromium} = require('playwright');
     if(page) await record('failure').catch(()=>{});
     console.error(JSON.stringify(report.pages.at(-1)));
     console.error(JSON.stringify(report.failedRequests));
+    console.error(JSON.stringify(report.flowInitiations));
     throw error;
   } finally {
     fs.writeFileSync(path.join(output,'report.json'),JSON.stringify(report,null,2)+'\n');
