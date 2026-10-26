@@ -747,6 +747,8 @@ class Handler(BaseHTTPRequestHandler):
             if not isinstance(data, dict):
                 raise APIError(400, "JSON object required")
             path = urlsplit(self.path).path
+            if path == "/2.0/cash/get-flow" and os.environ.get("CASHLARP_DEBUG_NATIVE") == "1":
+                print("Native flow request:", json.dumps(data), flush=True)
             if path == "/2.0/cash/web/device-info":
                 # Compatibility no-op. Device fingerprint payload is discarded.
                 return self.send(200, {"mode": "play_money"})
