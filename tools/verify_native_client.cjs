@@ -64,6 +64,15 @@ const {chromium} = require('playwright');
     await page.locator('input:visible:not([type=radio]):not([type=checkbox]):not([type=file])').first().waitFor();
     assert(new URL(page.url()).pathname==='/login');
     await record('01-original-login');
+    const seasonal = await page.evaluate(()=>{
+      const config=window.cashlarpSeasonalConfig;
+      const active=config.serverTime>=config.startsAt && config.serverTime<config.endsAt;
+      return {active,theme:document.documentElement.dataset.cashlarpSeason,logo:document.querySelector('.cashlarp-logo')?.getAttribute('src'),pumpkins:document.querySelectorAll('.cashlarp-pumpkins img').length};
+    });
+    assert.equal(seasonal.theme,seasonal.active?'halloween':'');
+    assert.equal(seasonal.pumpkins,seasonal.active?2:0);
+    assert.equal(seasonal.logo.includes('/halloween/'),seasonal.active);
+
     await page.getByText('Create account',{exact:true}).click();
     await page.getByText('Email',{exact:true}).click();
     await submit('nativeqa@example.com','/2.0/cash/register-email');

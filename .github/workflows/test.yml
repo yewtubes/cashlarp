@@ -48,6 +48,8 @@ jobs:
         run: |
           npm install --prefix "$RUNNER_TEMP/cashlarp-browser" --no-package-lock playwright@1.62.1
           google-chrome --version
+      - name: Test seasonal branding expiry
+        run: node tools/verify_seasonal.cjs
       - name: Test original client signup and account pages
         run: node tools/verify_native_client.cjs
         env:

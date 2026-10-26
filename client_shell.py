@@ -10,6 +10,7 @@ import hashlib
 import json
 from pathlib import Path
 import re
+import seasonal_branding
 
 ROOT = Path(__file__).resolve().parent
 REVISION = "d964d4f8766900778d7282f4b26521146f6d2785"
@@ -65,7 +66,9 @@ def document(application):
                 raise ValueError("Captured entrypoint not found: " + old)
         source = source.replace("</head>", '<script>var templateVariables={customerToken:"__SANDBOX_CUSTOMER__",worm:{countryCode:"US",region:"USA"}};</script></head>', 1)
         bridge = "account-bridge.js"
-    adapters = ('<script defer src="/local/preferences.js"></script>'
+    adapters = ('<script>window.cashlarpSeasonalConfig=__CASHLARP_SEASONAL_CONFIG__;</script>'
+                '<script defer src="/local/seasonal.js"></script>'
+                '<script defer src="/local/preferences.js"></script>'
                 '<script defer src="/local/branding.js"></script>'
                 '<script defer src="/local/' + bridge + '"></script>')
     source = re.sub(r'(?=<script defer="defer" src="[^\"]*/runtime)', lambda _: adapters, source, count=1)
@@ -73,8 +76,13 @@ def document(application):
 
 
 def login_document():
-    return document("login")
+    return seasonal_document("login")
 
 
 def account_document(session):
-    return document("account").replace("__SANDBOX_CSRF__", session["csrf"]).replace("__SANDBOX_CUSTOMER__", session["user_id"])
+    return seasonal_document("account").replace("__SANDBOX_CSRF__", session["csrf"]).replace("__SANDBOX_CUSTOMER__", session["user_id"])
+
+
+def seasonal_document(application):
+    # The captured shell is cached, but its clock must be fresh on each request.
+    return document(application).replace("__CASHLARP_SEASONAL_CONFIG__", json.dumps(seasonal_branding.configuration()))

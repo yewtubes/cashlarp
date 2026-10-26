@@ -4,6 +4,10 @@ A local roleplay app using captured Cash App login and account JavaScript with a
 
 Cashlarp branding replaces the visible wordmarks. The old fixed banner is removed. The logo has a transparent exterior and fully opaque green and white artwork; the wordmark includes room for the final letter and switches to white in native dark mode. The application uses only the captured client screens; the former custom console, About and logo-preview pages have been removed.
 
+## Halloween branding
+
+The Halloween 2026 theme adds translucent pumpkin accents, a witch-hat Cashlarp wordmark and a pumpkin favicon. It is active through October 31 and returns to the default branding automatically at **November 1, 2026, 00:00 UTC**, including already-open tabs. The server supplies the clock; browser timezones do not affect the cutoff. It does not repeat next year. The schedule is in `seasonal_branding.py`; `python3 tools/build_halloween.py` rebuilds its transparent SVG artwork.
+
 ## Quick start
 
 Install Python 3.10+ and Git, then:

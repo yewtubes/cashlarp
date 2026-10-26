@@ -15,7 +15,8 @@
     const path=anchor.querySelector('svg path');
     const fill=path?.getAttribute('fill')?.toLowerCase();
     const dark=fill==='#ffffff'||fill==='#fff';
-    const url='/local/brand/cashlarp-wordmark'+(dark?'-dark':'')+'.svg';
+    const season=document.documentElement.dataset.cashlarpSeason==='halloween'?'halloween/':'';
+    const url='/local/brand/'+season+'cashlarp-wordmark'+(dark?'-dark':'')+'.svg';
     if(image.getAttribute('src')!==url)image.src=url;
   }
   function brand() {
@@ -52,5 +53,6 @@
     }
   }
   new MutationObserver(()=>{if(!queued){queued=true;queueMicrotask(brand);}}).observe(document.body,{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:['fill']});
+  document.addEventListener('cashlarp:seasonchange',brand);
   brand();
 })();
