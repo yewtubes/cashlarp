@@ -25,7 +25,7 @@ def extract_urls(text):
             if (url.scheme != "https" or url.netloc != "cash-f.squarecdn.com"
                     or url.query or url.fragment or url.username or url.password):
                 continue
-            if not re.fullmatch(r"/(?:web/(?:account|login)/[a-f0-9]{40}/[A-Za-z0-9_./-]+\.(?:js|css|woff2|json|svg|png)|static/fonts/[A-Za-z0-9_./-]+\.woff2)", url.path):
+            if not re.fullmatch(r"/(?:web/(?:account|login)/[a-f0-9]{40}/[A-Za-z0-9_./-]+\.(?:js|css|woff2|otf|json|svg|png|jpg|webp|glb)|static/[A-Za-z0-9_./-]+\.(?:woff2|otf|svg|png|jpg|webp))", url.path):
                 continue
             if ".." in url.path.split("/"):
                 continue
