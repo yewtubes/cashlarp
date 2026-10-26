@@ -41,18 +41,21 @@ def dispatch(path,data,store,cookie_header):
             with store.connect() as db:exists=db.execute('SELECT 1 FROM users WHERE username=?',(prefix,)).fetchone()
             if exists:prefix='player_'+secrets.token_hex(4)
             uid=store.register(prefix,secrets.token_urlsafe(32),'Sandbox player')['id']
-            store.update_settings(uid,aliases=[{'type':flow['kind'],'canonical_text':alias,'verified':True}])
+            store.update_settings(uid,aliases=[{'type':flow['kind'],'canonical_text':alias,'verified':True}],onboarding_stage='NAME')
+        next_stage=store.settings(uid).get('onboarding_stage') or 'COMPLETE'
         session,csrf,_=store.issue_session(uid)
         headers['Set-Cookie']='sandbox_session='+session+'; HttpOnly; SameSite=Strict; Path=/; Max-Age=86400'
-        with store.connect() as db:db.execute('UPDATE login_flows SET user_id=?,stage=? WHERE token=?',(uid,'NAME' if fresh else 'COMPLETE',token))
-        result=response([descriptor('name')] if fresh else []);result['token']=token
+        with store.connect() as db:db.execute('UPDATE login_flows SET user_id=?,stage=? WHERE token=?',(uid,next_stage,token))
+        result=response([descriptor('name' if next_stage=='NAME' else 'cashtag')] if next_stage!='COMPLETE' else []);result['token']=token
         return result,headers
     if uid and stage=='NAME' and path=='/2.0/cash/set-full-name':
         store.update_profile(uid,data.get('full_name'))
+        store.update_settings(uid,onboarding_stage='CASHTAG')
         with store.connect() as db:db.execute("UPDATE login_flows SET stage='CASHTAG' WHERE token=?",(token,))
         return response([descriptor('cashtag')]),{}
     if uid and stage=='CASHTAG' and path=='/2.0/cash/set-cashtag':
         store.set_handle(uid,data.get('cashtag'))
+        store.update_settings(uid,onboarding_stage=None)
         with store.connect() as db:db.execute("UPDATE login_flows SET stage='COMPLETE' WHERE token=?",(token,))
         return response(),{'Set-Cookie':'sandbox_login=; Max-Age=0; HttpOnly; SameSite=Strict; Path=/'}
     return None

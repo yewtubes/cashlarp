@@ -6,7 +6,8 @@ import threading
 import http.client
 import unittest
 
-from server import DEMO_PASSWORD, INITIAL_CENTS, make_server
+from server import INITIAL_CENTS
+from fixtures import DEMO_PASSWORD, make_server
 
 
 class NativeClientTests(unittest.TestCase):

@@ -3,7 +3,7 @@
 ## Local setup
 
 Install Python 3.10 or newer, clone the repository and run `python3 -B run.py`.
-Open http://127.0.0.1:3000/login. No Python or npm packages are required.
+Open http://127.0.0.1:3000/login and create your first account using the original client. Fresh databases have no users. No Python or npm packages are required at runtime.
 `./start.sh` and `start.bat` use the same launcher. Options include `--host`,
 `--port` and `--db`.
 

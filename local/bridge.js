@@ -27,21 +27,4 @@
     return response;
   };
   navigator.sendBeacon = () => false;
-  document.addEventListener("click", event => {
-    const button = event.target.closest?.("button");
-    if (button && /Log in with passkey/i.test(button.textContent)) {
-      event.preventDefault();
-      event.stopImmediatePropagation();
-      location.assign("/about");
-      return;
-    }
-    const link = event.target.closest?.("a[href]");
-    if (!link) return;
-    const url = new URL(link.href, location.href);
-    if (url.origin !== location.origin) {
-      event.preventDefault();
-      event.stopImmediatePropagation();
-      location.assign("/about");
-    }
-  }, true);
 })();

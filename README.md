@@ -2,7 +2,7 @@
 
 A local roleplay app using captured Cash App login and account JavaScript with an independent Python/SQLite backend. Balances, transfers, cards and Bitcoin holdings belong to the local simulation. No real financial account, payment rail, card issuer, email or SMS service is connected.
 
-Cashlarp branding replaces the visible wordmarks. The old fixed banner is removed. The logo has a transparent exterior and fully opaque green and white artwork; the wordmark includes room for the final letter and switches to white in native dark mode. About Cashlarp contains the simulation details.
+Cashlarp branding replaces the visible wordmarks. The old fixed banner is removed. The logo has a transparent exterior and fully opaque green and white artwork; the wordmark includes room for the final letter and switches to white in native dark mode. The application uses only the captured client screens; the former custom console, About and logo-preview pages have been removed.
 
 ## Quick start
 
@@ -14,11 +14,11 @@ cd cashlarp
 python3 run.py
 ```
 
-On Windows use `py -3 run.py` or double-click `start.bat`. Linux/macOS users can also run `./start.sh`. No pip packages, npm installation, or frontend rebuild tooling is required. The launcher prepares the original-client boot documents automatically.
+On Windows use `py -3 run.py` or double-click `start.bat`. Linux/macOS users can also run `./start.sh`. No pip packages, npm installation, or frontend rebuild tooling is required. The server adapts the captured boot document in memory; it does not generate replacement HTML pages.
 
 Open **http://127.0.0.1:3000/login**. Use a reserved `@example.com`, `@example.net` or `@example.org` email, or a fictional `+12025550100`–`+12025550199` phone. Verification code: **123456**. New accounts start with $50 million and one fictional BTC. Native signup asks for a name and cashtag.
 
-The optional control console is at http://127.0.0.1:3000/sandbox/status. Demo usernames are `kotik` and `friend`; console password is `play-money-only`. New cards activate with **123456** and start with Cash PIN **1234**. PIN changes persist. These are shared roleplay fixtures, so domain hosting includes a separate private access password.
+Fresh installations start with **zero accounts**. There are no pre-created `$kotik` or `$friend` users and no custom sign-in console. Create an account through the captured client's original phone/email → verification → name → cashtag screens; returning users use that same original login. New cards activate with **123456** and start with Cash PIN **1234**. Domain hosting has a separate private access password.
 
 ### Docker
 
@@ -59,7 +59,7 @@ Browser verification includes native signup through name/cashtag, funding and pa
 
 ## Architecture and integrity
 
-Captured JavaScript remains byte-for-byte unchanged and checksummed in `capture/manifest.json`. Original account screens, forms, card editor, graphics and dialogs render from those bundles. The account boot document is a local harness derived from the captured login configuration and account entrypoint; it is not captured signed-in account HTML.
+Captured JavaScript remains byte-for-byte unchanged and checksummed in `capture/manifest.json`. Original account screens, forms, card editor, graphics and dialogs render from those bundles. Both boot documents derive directly from `capture/login.html`, retaining the captured body, styles and loading artwork. The account entrypoint uses its required mount id and session globals. No signed-in account HTML was captured, and no replacement page forms or layouts are generated.
 
 `server.py` owns SQLite state and local HTTP sessions. `compat.py`, `settings_compat.py` and `native_auth.py` implement the original client's contracts. Separate runtime bridges adapt transport, branding, local preferences and Card Studio's existing 2D fallback when WebGL cannot initialize. The original 3D path stays available on capable browsers.
 
@@ -71,7 +71,7 @@ Sessions use hashed tokens, HttpOnly/SameSite cookies and CSRF validation. Passw
 python3 -m unittest discover -s tests -v
 ```
 
-The test suite covers capture hashes, boot wiring, native authentication, session/CSRF isolation, payment/request permissions, overdraft and concurrent retries, ledger conservation, local funding, Bitcoin, card design persistence, export scoping, PIN gating and settings. Browser QA complements these tests; this project is not yet verified as complete 1:1 coverage of every original journey.
+The Python suite and browser CI cover fresh installs with zero accounts, removal of custom HTML pages, native signup/login, interrupted onboarding, original account navigation and logout. The test suite also covers capture hashes, boot wiring, native authentication, session/CSRF isolation, payment/request permissions, overdraft and concurrent retries, ledger conservation, local funding, Bitcoin, card design persistence, export scoping, PIN gating and settings. Browser QA complements these tests; this project is not yet verified as complete 1:1 coverage of every original journey.
 
 ## Capture provenance
 

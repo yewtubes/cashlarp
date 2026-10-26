@@ -1,10 +1,11 @@
 {
   "name": "cashlarp",
   "private": true,
-  "version": "0.6.0",
+  "version": "0.7.0",
   "scripts": {
     "dev": "python3 -B run.py --host 0.0.0.0",
     "build": "python3 tools/build_local.py && python3 tools/build_account.py",
-    "test": "python3 -m unittest discover -s tests -v"
+    "test": "python3 -m unittest discover -s tests -v",
+    "test:browser": "node tools/verify_native_client.cjs"
   }
 }

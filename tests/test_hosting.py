@@ -11,7 +11,7 @@ import unittest
 from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from server import DEMO_PASSWORD, make_server
+from fixtures import DEMO_PASSWORD, make_server
 from scripts.backup import backup
 from tools.configure_host import configure
 

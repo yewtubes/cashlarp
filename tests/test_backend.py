@@ -9,7 +9,8 @@ import threading
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from server import APIError, DEMO_PASSWORD, INITIAL_CENTS, Store, make_server
+from server import APIError, INITIAL_CENTS
+from fixtures import DEMO_PASSWORD, Store, make_server
 
 
 class LedgerTests(unittest.TestCase):

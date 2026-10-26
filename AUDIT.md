@@ -1,12 +1,12 @@
 # Verification record
 
-Current version: 0.6.0. This record distinguishes implemented behavior from completed browser checks. Full 1:1 parity is not claimed.
+Current version: 0.7.0. This record distinguishes implemented behavior from completed browser checks. Full 1:1 parity is not claimed.
 
 | Area | Implemented | Evidence / remaining limits |
 | --- | --- | --- |
 | Original asset integrity | Yes | Manifest/hash tests; captured JS unmodified |
 | Cashlarp branding | Yes | Login and account checked; icon checked on dark/checker backgrounds; full wordmark fits, light/dark variants |
-| Native local signup/login | Yes | Reserved email → code → name → cashtag → settings; repeat login unit-tested |
+| Native local signup/login | Yes | Original captured forms; fresh installations contain zero accounts. Email/SMS signup, repeat login, interrupted signup and contact-edit isolation covered by HTTP tests; browser CI exercises the actual bundles. |
 | Money, payments, requests | Yes | Native funding/payment browser checks; atomic/idempotency and request authorization tests |
 | Activity, filters and CSV | Yes | Native filtered export and owner isolation tested; pagination is one local result set |
 | Bitcoin | Yes | Native buy/sell checked; fixed quote and atomic balances tested; no live market |
@@ -28,5 +28,7 @@ Current version: 0.6.0. This record distinguishes implemented behavior from comp
 | Account closure | Pending | Original entry present; local recoverable closure adapter pending |
 | Passkeys | Partial | Empty native credential list; actual WebAuthn enrollment/login not implemented |
 | Taxes / investing / real banking | Not implemented | Local simulation only; no external money, bank, tax or brokerage service |
+
+All custom HTML pages have been deleted. Boot documents adapt the captured login document in memory; only the account mount id, entrypoints, session globals and local transport differ. No hand-authored forms or page layouts are inserted. Legacy console/About routes redirect to native login. Test identities exist only in `tests/fixtures.py` and are never created by production startup.
 
 The default server listens on loopback. Development preview may bind 0.0.0.0 inside the managed QA environment. No public deployment was made.

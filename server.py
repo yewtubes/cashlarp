@@ -17,7 +17,8 @@ import sqlite3
 import time
 from http.cookies import SimpleCookie
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
-from urllib.parse import urlsplit, parse_qs
+from urllib.parse import urlsplit, parse_qs, quote
+import client_shell
 import compat
 import native_auth
 from server_errors import AuthError
@@ -25,7 +26,6 @@ from server_errors import AuthError
 ROOT = Path(__file__).resolve().parent
 INITIAL_CENTS = 5_000_000_000
 MAX_CENTS = 100_000_000_000_000
-DEMO_PASSWORD = "play-money-only"
 CSP = ("default-src 'self'; script-src 'self' 'unsafe-inline'; "
        "style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; "
        "font-src 'self' data:; connect-src 'self'; frame-src 'none'; "
@@ -116,13 +116,6 @@ class Store:
                 db.execute("ALTER TABLE activation_flows ADD COLUMN purpose TEXT NOT NULL DEFAULT 'ACTIVATE'")
             if "card_activated" not in [r["name"] for r in db.execute("PRAGMA table_info(extras)")]:
                 db.execute("ALTER TABLE extras ADD COLUMN card_activated INTEGER NOT NULL DEFAULT 0")
-        for username, display in [("kotik", "Kotik"), ("friend", "Friend")]:
-            try:
-                self.register(username, DEMO_PASSWORD, display)
-            except APIError as e:
-                if e.status != 409:
-                    raise
-
     def connect(self):
         db = sqlite3.connect(self.path, timeout=15, isolation_level=None)
         db.row_factory = sqlite3.Row
@@ -641,8 +634,10 @@ class Handler(BaseHTTPRequestHandler):
                 path="/cdn"+path
             if path.startswith("/sandbox/player/"):
                 return self.send(302,b"",extra={"Location":"/account/pay-and-request"})
-            if path in ("/about","/support"):
-                return self.send(200,(ROOT/"local/about.html").read_bytes(),"text/html; charset=utf-8")
+            if path == "/support":
+                return self.send(302, b"", extra={"Location": "/account/not-found"})
+            if path in ("/about", "/sandbox", "/sandbox/status", "/signup"):
+                return self.send(302, b"", extra={"Location": "/login"})
             if path == "/api/health":
                 return self.send(200, {"ok": True, "mode": "play_money", "client": "captured_login_and_account",
                                        "account_client_captured": True})
@@ -675,17 +670,27 @@ class Handler(BaseHTTPRequestHandler):
             if path == "/":
                 return self.send(302, b"", extra={"Location": "/login"})
             if path == "/login":
-                return self.send(200, (ROOT / "local/login.html").read_bytes(), "text/html; charset=utf-8")
+                try:
+                    session = self.auth()
+                except APIError:
+                    session = None
+                if session and not self.store.settings(session["user_id"]).get("onboarding_stage"):
+                    requested = parse_qs(urlsplit(self.path).query).get("redirect", ["/account/money"])[0]
+                    target = requested if requested.startswith("/account/") and not any(c in requested for c in ("\\", "\r", "\n")) else "/account/money"
+                    return self.send(302, b"", extra={"Location": target})
+                return self.send(200, client_shell.login_document(), "text/html; charset=utf-8")
             if path == "/account" or path.startswith("/account/"):
                 try:
                     session = self.auth()
                 except APIError:
-                    return self.send(302, b"", extra={"Location": "/sandbox/status"})
-                html = (ROOT / "local/account.html").read_text().replace("__SANDBOX_CSRF__", session["csrf"]).replace("__SANDBOX_CUSTOMER__", session["user_id"])
+                    return self.send(302, b"", extra={"Location": "/login?redirect=" + quote(self.path, safe="")})
+                if self.store.settings(session["user_id"]).get("onboarding_stage"):
+                    return self.send(302, b"", extra={"Location": "/login"})
+                html = client_shell.account_document(session)
                 return self.send(200, html, "text/html; charset=utf-8")
-            if path in ("/sandbox", "/sandbox/status"):
-                return self.send(200, (ROOT / "local/status.html").read_bytes(), "text/html; charset=utf-8")
             prefix, base = ("/cdn/", ROOT / "capture/cdn") if path.startswith("/cdn/") else ("/local/", ROOT / "local")
+            if path.startswith("/local/") and (path.lower().endswith(".html") or path == "/local/status.js"):
+                raise APIError(404, "Page is not part of the captured client")
             if not path.startswith(prefix):
                 raise APIError(404, "Local route not implemented")
             file = (base / path[len(prefix):]).resolve()
@@ -720,8 +725,13 @@ class Handler(BaseHTTPRequestHandler):
             if path in auth_paths:
                 try:existing_session=self.auth()
                 except APIError:existing_session=None
-                login_cookie="sandbox_login=" in self.headers.get("Cookie","")
-                if existing_session is None or (login_cookie and path not in ("/2.0/cash/register-email","/2.0/cash/register-sms")):
+                cookies = SimpleCookie(self.headers.get("Cookie", ""))
+                flow_token = cookies["sandbox_login"].value if "sandbox_login" in cookies else ""
+                with self.store.connect() as db:
+                    login_flow = db.execute("SELECT stage FROM login_flows WHERE token=? AND expires>?", (flow_token, int(time.time()))).fetchone()
+                pending_signup = existing_session and self.store.settings(existing_session["user_id"]).get("onboarding_stage")
+                active_login_flow = login_flow and login_flow["stage"] != "COMPLETE"
+                if existing_session is None or pending_signup or (active_login_flow and path not in ("/2.0/cash/register-email", "/2.0/cash/register-sms")):
                     native=native_auth.dispatch(path,data,self.store,self.headers.get("Cookie",""))
                     if native is not None:
                         result,headers=native
@@ -743,6 +753,8 @@ class Handler(BaseHTTPRequestHandler):
                 digest = hashlib.sha256(cookies["sandbox_session"].value.encode()).hexdigest()
                 with self.store.connect() as db:
                     db.execute("DELETE FROM sessions WHERE token_hash=?", (digest,))
+                    if "sandbox_login" in cookies:
+                        db.execute("DELETE FROM login_flows WHERE token=?", (cookies["sandbox_login"].value,))
                 return self.send(200, {"ok": True}, extra={"Set-Cookie": "sandbox_session=; Max-Age=0; HttpOnly; SameSite=Strict; Path=/"})
             if path == "/api/profile":
                 uid = self.auth(mutate=True)["user_id"]

@@ -52,7 +52,7 @@
   });
   const originalFetch = window.fetch.bind(window);
   const tradeKeys = new Map();
-  window.fetch = (input, options = {}) => {
+  window.fetch = async (input, options = {}) => {
     const url = new URL(typeof input === "string" ? input : input.url, location.href);
     if (url.origin !== location.origin) return Promise.reject(new Error("Sandbox blocks external network requests"));
     if (url.pathname === "/2.0/cash/get-flow" && typeof options.body === "string") {
@@ -72,7 +72,11 @@
         return response;
       });
     }
-    return originalFetch(input, { ...options, headers });
+    const response = await originalFetch(input, { ...options, headers });
+    if (response.status === 401 && url.pathname !== '/logout') {
+      location.assign('/login?redirect=' + encodeURIComponent(location.pathname + location.search));
+    }
+    return response;
   };
   navigator.sendBeacon = () => false;
   document.addEventListener("click", event => {

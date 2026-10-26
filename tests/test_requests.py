@@ -3,7 +3,8 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 import tempfile
 import unittest
-from server import Store, APIError, INITIAL_CENTS
+from server import APIError, INITIAL_CENTS
+from fixtures import Store
 import compat
 
 class RequestTests(unittest.TestCase):

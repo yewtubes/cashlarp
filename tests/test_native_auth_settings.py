@@ -5,7 +5,8 @@ import tempfile
 import threading
 import unittest
 from http.cookies import SimpleCookie
-from server import make_server,INITIAL_CENTS
+from server import INITIAL_CENTS
+from fixtures import make_server
 
 class NativeAuthSettingsTests(unittest.TestCase):
  def setUp(self):

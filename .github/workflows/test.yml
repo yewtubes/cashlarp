@@ -30,3 +30,28 @@ jobs:
       - name: Stop containers
         if: always()
         run: docker compose down -v
+  browser:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser test tools outside project
+        run: |
+          npm install --prefix "$RUNNER_TEMP/cashlarp-browser" --no-package-lock playwright@1.62.1
+          "$RUNNER_TEMP/cashlarp-browser/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Test original client signup and account pages
+        run: node tools/verify_native_client.cjs
+        env:
+          NODE_PATH: ${{ runner.temp }}/cashlarp-browser/node_modules
+          BROWSER_REPORT_DIR: ${{ runner.temp }}/cashlarp-browser-report
+      - name: Upload original-client verification report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: original-client-browser-report
+          path: ${{ runner.temp }}/cashlarp-browser-report

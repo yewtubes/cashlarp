@@ -1,7 +1,8 @@
 from pathlib import Path
 import tempfile
 import unittest
-from server import Store,APIError,INITIAL_CENTS
+from server import APIError,INITIAL_CENTS
+from fixtures import Store
 import compat
 class EconomyTests(unittest.TestCase):
  def setUp(self):
