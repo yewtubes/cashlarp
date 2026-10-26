@@ -4,7 +4,7 @@ The Cashlarp Card is a green theme in the original Card Studio catalog. Its
 base artwork combines the Cashlarp mark with the Benjamin Netanyahu outline
 stamp. The theme uses the native card renderer, chip, controls and drawing
 layers. The original captured bundles and original ten theme records remain
-unchanged. A small runtime adapter supplies the new card's background asset.
+unchanged. A small runtime adapter supplies the new card's background asset in the native 2D renderer and its 3D texture loader. Native personalization, chip and reverse-side layout are retained.
 
 The sticker was generated with the built-in image generator and exported as
 transparent black-outline art. It is vectorized into a normal SVG stamp so the
