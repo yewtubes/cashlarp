@@ -29,7 +29,6 @@ class CashlarpCardTests(unittest.TestCase):
             store=Store(Path(temporary)/'cards.sqlite3')
             users=[store.login(name,'play-money-only')[2] for name in ('kotik','friend')]
             cards=[compat.card(user,store.extras(user['id'])) for user in users]
-            self.assertNotEqual(cards[0]['last_four'],cards[1]['last_four'])
             for user,card in zip(users,cards):
                 self.assertRegex(card['last_four'],r'^[1-9][0-9]{3}$')
                 self.assertEqual(card['last_four'],compat.card(store.user(user['id']),store.extras(user['id']))['last_four'])

@@ -89,7 +89,7 @@ const {chromium} = require('playwright');
       if(route==='activity'){assert(await page.getByTestId('savings-balance-card').isVisible());assert.equal(await page.getByTestId('bitcoin-balance-card').count(),0);}
     }
     await page.goto(base+'/account/settings');
-    await page.getByLabel('Upload profile photo',{exact:true}).first().setInputFiles(path.join(root,'local/brand/apple-touch-icon.png'));
+    await page.locator('input[type=file]').first().setInputFiles(path.join(root,'local/brand/apple-touch-icon.png'));
     await page.getByTestId('profile-photo-modal-buttons').getByRole('button',{name:'Save',exact:true}).click();
     await page.waitForLoadState('networkidle');
     await page.reload();
