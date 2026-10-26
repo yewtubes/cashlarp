@@ -180,6 +180,7 @@ const {chromium} = require('playwright');
     await page.waitForLoadState('networkidle');
     await page.waitForTimeout(2000);
     await record('cashlarp-card-reloaded');
+    report.interactionAudit=await require('./audit_native_client.cjs')({page,base,output});
     await page.goto(base+'/account/settings');
     const logout = page.getByText(/^(Sign out|Log out)$/i,{exact:true});
     if(!await logout.first().isVisible()) await page.getByText('Native QA P.',{exact:true}).first().click();
