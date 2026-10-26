@@ -28,13 +28,14 @@
     let result='';
     for(const rule of rules) {
       if(rule.selectorText&&rule.style){
-        let declarations='';
+        let declarations='',orangeBackground=false;
         for(const property of rule.style){
           const value=rule.style.getPropertyValue(property);
           const replacement=halloween(value,property);
           if(value!==replacement)declarations+=`${property}:${replacement}!important;`;
-          if(property==='background-color'&&replacement==='rgb(245,122,24)')declarations+='color:#1b1008!important;';
+          if(property==='background-color'&&replacement==='rgb(245,122,24)')orangeBackground=true;
         }
+        if(orangeBackground)declarations+='color:#1b1008!important;';
         if(declarations)result+=rule.selectorText.split(',').map(s=>`${scope} ${s}`).join(',')+'{'+declarations+'}';
       } else if(rule.cssRules&&rule.conditionText) result+=`@media ${rule.conditionText}{${copy(rule.cssRules)}}`;
     }
