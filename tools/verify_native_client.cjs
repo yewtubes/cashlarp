@@ -53,7 +53,7 @@ const {chromium} = require('playwright');
     page.on('pageerror', error => report.errors.push(error.message));
     page.on('request', request => {
       const url=request.url();
-      if(new URL(url).pathname==='/2.0/cash/get-flow'){try{const flow=JSON.parse(request.postData()||'{}').initiation_data;if(flow&&!report.flowInitiations.includes(flow))report.flowInitiations.push(flow);}catch{}}
+      if(new URL(url).pathname==='/2.0/cash/get-flow'){try{const data=JSON.parse(request.postData()||'{}');const flow=data.initiation_data||data.flow_type;if(flow&&!report.flowInitiations.includes(flow))report.flowInitiations.push(flow);}catch{}}
       if (!url.startsWith(base+'/') && !url.startsWith('data:') && !url.startsWith('blob:')) report.externalRequests.push(url);
     });
     page.on('response', response => {

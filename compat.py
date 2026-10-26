@@ -163,6 +163,8 @@ def native_amount(data):
     return cents
 
 def read_rpc(path, data, store, uid):
+    if path == "/2.0/cash/get-flow" and not data.get("initiation_data") and isinstance(data.get("flow_type"), str):
+        data = {**data, "initiation_data": data["flow_type"]}
     if path=="/2.0/cash/verify-passcode":
         pending=store.pending_action(uid,data.get("_sandbox_flow_token"))
         if pending:

@@ -33,3 +33,11 @@ class CashlarpCardTests(unittest.TestCase):
                 self.assertRegex(card['last_four'],r'^[1-9][0-9]{3}$')
                 self.assertEqual(card['last_four'],compat.card(store.user(user['id']),store.extras(user['id']))['last_four'])
                 self.assertLess(abs(time.time()-card['issued_at']),10)
+
+    def test_native_flow_type_requests_open_the_real_card_and_address_blockers(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            store=Store(Path(temporary)/'flows.sqlite3')
+            user=store.login('kotik','play-money-only')[2]
+            for flow,blocker in [('CHANGE_CARD_DESIGN','card_customization'),('SET_ADDRESS','address')]:
+                response=compat.read_rpc('/2.0/cash/get-flow',{'flow_type':flow},store,user['id'])
+                self.assertIn(blocker,response['response_context']['scenario_plan']['blocker_descriptors'][0]['blocker'])

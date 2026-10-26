@@ -84,7 +84,8 @@
     const url = new URL(typeof input === "string" ? input : input.url, location.href);
     if (url.origin !== location.origin) return Promise.reject(new Error("Sandbox blocks external network requests"));
     if (url.pathname === "/2.0/cash/get-flow" && typeof options.body === "string") {
-      const initiation = JSON.parse(options.body).initiation_data || "";
+      const payload = JSON.parse(options.body);
+      const initiation = payload.initiation_data || payload.flow_type || "";
       if (/^(CHANGE_CARD_DESIGN|REQUEST_PHYSICAL_CARD)/.test(initiation)) window.__sandboxDesignerActive = true;
     }
     const headers = new Headers(options.headers || (input instanceof Request ? input.headers : undefined));
