@@ -132,6 +132,10 @@ class Store:
                 db.execute("ALTER TABLE trades ADD COLUMN created_at INTEGER NOT NULL DEFAULT 0")
             if "purpose" not in [r["name"] for r in db.execute("PRAGMA table_info(activation_flows)")]:
                 db.execute("ALTER TABLE activation_flows ADD COLUMN purpose TEXT NOT NULL DEFAULT 'ACTIVATE'")
+            if "card_generation" not in [r["name"] for r in db.execute("PRAGMA table_info(extras)")]:
+                db.execute("ALTER TABLE extras ADD COLUMN card_generation INTEGER NOT NULL DEFAULT 0")
+            if "card_issued_at" not in [r["name"] for r in db.execute("PRAGMA table_info(extras)")]:
+                db.execute("ALTER TABLE extras ADD COLUMN card_issued_at INTEGER NOT NULL DEFAULT 0")
             if "card_activated" not in [r["name"] for r in db.execute("PRAGMA table_info(extras)")]:
                 db.execute("ALTER TABLE extras ADD COLUMN card_activated INTEGER NOT NULL DEFAULT 0")
     def connect(self):
@@ -530,6 +534,31 @@ class Store:
             db.execute("INSERT INTO activation_flows(token,user_id,expires,purpose) VALUES(?,?,?,?)",(token,uid,int(time.time())+900,purpose))
         return token
 
+    def apply_settings_flow(self,uid,token,purpose,values):
+        with self.connect() as db:
+            db.execute("BEGIN IMMEDIATE")
+            flow=db.execute("SELECT purpose FROM activation_flows WHERE token=? AND user_id=? AND expires>?",(token,uid,int(time.time()))).fetchone()
+            if not flow or flow["purpose"] not in (purpose,purpose+"_DONE"):
+                raise APIError(403,"Open the matching account flow first")
+            if flow["purpose"]==purpose+"_DONE":return
+            row=db.execute("SELECT json FROM user_settings WHERE user_id=?",(uid,)).fetchone()
+            settings=json.loads(row["json"]) if row else {}
+            settings.update(values)
+            db.execute("INSERT INTO user_settings VALUES(?,?) ON CONFLICT(user_id) DO UPDATE SET json=excluded.json",(uid,json.dumps(settings)))
+            db.execute("UPDATE activation_flows SET purpose=? WHERE token=?",(purpose+"_DONE",token))
+
+    def replace_card(self,uid,token):
+        self.extras(uid)
+        with self.connect() as db:
+            db.execute("BEGIN IMMEDIATE")
+            flow=db.execute("SELECT purpose FROM activation_flows WHERE token=? AND user_id=? AND expires>?",(token,uid,int(time.time()))).fetchone()
+            if not flow or flow["purpose"] not in ("REPLACE_CARD","REPLACE_CARD_DONE"):
+                raise APIError(403,"Confirm your replacement card first")
+            if flow["purpose"]=="REPLACE_CARD_DONE":return
+            if db.execute("UPDATE extras SET card_generation=card_generation+1,card_issued_at=?,card_activated=0,card_enabled=1 WHERE user_id=? AND card_activated=1",(int(time.time()),uid)).rowcount!=1:
+                raise APIError(409,"Activate your current card before requesting another replacement")
+            db.execute("UPDATE activation_flows SET purpose='REPLACE_CARD_DONE' WHERE token=?",(token,))
+
     def activate_card(self,uid,token,code):
         if not isinstance(token,str) or code!="123456":raise APIError(400,"Use demo activation code 123456 for the fictional card")
         self.extras(uid)
@@ -867,6 +896,7 @@ class Handler(BaseHTTPRequestHandler):
                 session = self.auth(mutate=True)
                 data["_sandbox_pin_authorized"]=False
                 data["_sandbox_flow_token"]=self.headers.get("Cash-Flow-Token", "")
+                data["_sandbox_client_scenario"]=self.headers.get("Cash-Client-Scenario", "")
                 response = compat.read_rpc(path, data, self.store, session["user_id"])
                 if response is not None:
                     return self.send(200, response, "text/csv; charset=UTF-8" if isinstance(response,str) else "application/json",extra={"Cash-Flow-Token":response["token"]} if isinstance(response,dict) and response.get("token") else None)

@@ -140,6 +140,28 @@ const {chromium} = require('playwright');
     await page.getByText('Moved to Savings',{exact:true}).first().waitFor();
     await page.getByText('Moved from Savings',{exact:true}).first().waitFor();
     await record('savings-transfer-activity');
+    for(const [amount,opening] of [['500','Set goal'],['0','Update goal']]){
+      await page.goto(base+'/account/savings');
+      await page.getByText(opening,{exact:true}).click();
+      await page.locator('input:visible').first().fill(amount);
+      const savedGoal=page.waitForResponse(r=>new URL(r.url()).pathname==='/2.0/cash/submit-form');
+      await page.getByRole('button',{name:'Save goal',exact:true}).click();
+      assert.equal((await savedGoal).status(),200);
+      await page.getByRole('button',{name:'Done',exact:true}).click();
+      await page.goto(base+'/account/savings');
+      if(amount==='500')assert((await page.getByTestId('savings-goal-diagram').innerText()).includes('$400.50'));
+      else await page.getByText('No goal set',{exact:true}).waitFor();
+      await record(amount==='500'?'savings-goal-saved':'savings-goal-removed');
+    }
+    for(const button of ['Enable Round Ups','Turn off Round Ups']){
+      await page.goto(base+'/account/savings');
+      await page.getByText('Round Ups',{exact:true}).click();
+      const savedPreference=page.waitForResponse(r=>new URL(r.url()).pathname==='/2.0/cash/submit-form');
+      await page.getByRole('button',{name:button,exact:true}).click();
+      assert.equal((await savedPreference).status(),200);
+      await page.getByRole('button',{name:'Done',exact:true}).click();
+    }
+
     await page.goto(base+'/account/settings');
     const photoChooser=page.waitForEvent('filechooser');
     await page.locator('[aria-label="Upload profile photo"]').first().click();
@@ -207,6 +229,25 @@ const {chromium} = require('playwright');
     await page.waitForLoadState('networkidle');
     await page.waitForTimeout(2000);
     await record('cashlarp-card-reloaded');
+    const beforeReplacement=await page.evaluate(async()=> (await (await fetch('/2.0/cash/get-profile',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'})).json()).profile.issued_card);
+    await page.getByText('Order a replacement card',{exact:true}).click();
+    const replaced=page.waitForResponse(r=>new URL(r.url()).pathname==='/2.0/cash/submit-form');
+    await page.getByRole('button',{name:'Replace card',exact:true}).click();
+    assert.equal((await replaced).status(),200);
+    await page.getByRole('button',{name:'Done',exact:true}).click();
+    await page.goto(base+'/account/card');
+    await page.getByRole('button',{name:'Activate',exact:true}).waitFor();
+    const afterReplacement=await page.evaluate(async()=> (await (await fetch('/2.0/cash/get-profile',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'})).json()).profile.issued_card);
+    assert.notEqual(afterReplacement.last_four,beforeReplacement.last_four);
+    assert.equal(afterReplacement.activated,false);
+    assert.equal(afterReplacement.card_theme.id,'CASHLARP');
+    await record('replacement-card-issued');
+    await page.getByRole('button',{name:'Activate',exact:true}).click();
+    await page.locator('input:visible').first().fill('123456');
+    const activateReplacement=page.waitForResponse(r=>new URL(r.url()).pathname==='/2.0/cash/submit-form');
+    await page.getByRole('button',{name:'Activate',exact:true}).last().click();
+    assert.equal((await activateReplacement).status(),200);
+    await page.getByRole('button',{name:'Done',exact:true}).click();
     report.interactionAudit=await require('./audit_native_client.cjs')({page,base,output});
     await page.goto(base+'/account/settings');
     const logout = page.getByText(/^(Sign out|Log out)$/i,{exact:true});

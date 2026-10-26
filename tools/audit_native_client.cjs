@@ -47,6 +47,7 @@ module.exports=async({page,base,output})=>{
       await page.locator('#root a').first().waitFor();
       await page.waitForLoadState('networkidle');
       const before=await page.locator('body').innerText();
+      const beforeState=await page.locator('input[type=checkbox],input[type=radio]').evaluateAll(nodes=>JSON.stringify(nodes.map(n=>({name:n.name,label:n.getAttribute('aria-label'),value:n.value,checked:n.checked}))));
       page.on('response',response);page.on('download',download);
       const target=control().first();
       if(await target.getAttribute('type')==='checkbox'){await target.focus({timeout:4000});await target.press('Space');}
@@ -59,7 +60,8 @@ module.exports=async({page,base,output})=>{
       finding.dialogs=await page.getByRole('dialog').allTextContents();
       finding.inputs=await page.locator('input:visible,select:visible,button:visible,a[role=button]:visible').evaluateAll(nodes=>nodes.map(n=>({tag:n.tagName,type:n.getAttribute('type'),label:n.getAttribute('aria-label'),name:n.getAttribute('name'),placeholder:n.getAttribute('placeholder'),text:n.textContent.trim().slice(0,100)})));
       finding.backgroundErrors=finding.requests.filter(r=>r.status>=400&&(['/2.0/cash/get-reward-status','/cash-app/limits-xp/get-customer-limits','/cash-app/devices/1.0/get-devices','/cash-app/security/1.0/get-settings-page-details'].includes(r.path)||(r.path==='/2.0/cash/get-flow'&&!JSON.parse(r.body||'{}').initiation_data&&!JSON.parse(r.body||'{}').flow_type)));
-      finding.status=finding.requests.some(r=>r.status>=400&&!finding.backgroundErrors.includes(r))?'rpc-error':finding.downloads.length?'download':before!==after?'screen-changed':'no-visible-change';
+      const afterState=await page.locator('input[type=checkbox],input[type=radio]').evaluateAll(nodes=>JSON.stringify(nodes.map(n=>({name:n.name,label:n.getAttribute('aria-label'),value:n.value,checked:n.checked}))));
+      finding.status=finding.requests.some(r=>r.status>=400&&!finding.backgroundErrors.includes(r))?'rpc-error':finding.downloads.length?'download':before!==after?'screen-changed':beforeState!==afterState?'state-changed':'no-visible-change';
     }catch(error){finding.status='interaction-error';finding.error=error.message;}
     finally{
       page.off('response',response);page.off('download',download);

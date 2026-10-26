@@ -4,7 +4,7 @@ import json
 import time
 
 SETTINGS={'aliases','postal_address','incoming_request_policy','require_passcode_confirmation',
-          'has_passcode','category_notifications','contact_preferences','notifications'}
+          'has_passcode','savings_goal_cents','round_ups_enabled','category_notifications','contact_preferences','notifications'}
 
 
 def export(store, uid):

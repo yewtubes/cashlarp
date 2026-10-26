@@ -52,8 +52,8 @@ def simulated_last_four(uid, purpose="card"):
 
 
 def card(user,extra):
-    return {"issued_at":user["created_at"],"activated":bool(extra.get("card_activated",0)),"card_order_data":{} if extra.get("card_activated") else {"state":"ISSUED"},"enabled":bool(extra["card_enabled"]),"virtual":False,
-            "last_four":simulated_last_four(user["id"]),"cardholder_name":user["display_name"],
+    return {"issued_at":extra.get("card_issued_at") or user["created_at"],"activated":bool(extra.get("card_activated",0)),"card_order_data":{} if extra.get("card_activated") else {"state":"ISSUED"},"enabled":bool(extra["card_enabled"]),"virtual":False,
+            "last_four":str(1000+(int(simulated_last_four(user["id"]))-1000+extra.get("card_generation",0))%9000),"cardholder_name":user["display_name"],
             "card_theme":extra.get("card_theme",{"id":"BLACK","card_color":"#000000","ink_color":"#ffffff"})}
 
 _THEMES=json.loads((Path(__file__).parent/'capture/config/card-theme-configs.json').read_text())["card_themes"]
@@ -186,6 +186,9 @@ def read_rpc(path, data, store, uid):
     from settings_compat import dispatch
     setting_result=dispatch(path,data,store,uid)
     if setting_result is not None:return setting_result
+    from local_journeys import dispatch as local_dispatch
+    journey=local_dispatch(path,data,store,uid)
+    if journey is not None:return journey
     user=store.user(uid)
     config=store.settings(uid)
     config["photo_url"]=store.profile_photo_url(uid)
@@ -251,10 +254,14 @@ def read_rpc(path, data, store, uid):
         return {"profile":profile(user,extra,preferences,config),"issued_cash_card":card(user,extra),"bitcoin_balance":{"snapshot":{"amount":extra["btc_sats"]}},"investing_portfolio_summary":{"has_portfolio":False}}
     if path == "/cash-app/savings/get-savings-overview":
         savings=money(store.savings_balance(uid))
+        folders=[{"token":"sim_savings_"+uid,"balance":savings,"general_folder":{}}]
+        goal=config.get("savings_goal_cents")
+        if goal:
+            folders.append({"token":"sim_goal_"+uid,"balance":money(0),"goal_folder":{"token":"sim_goal_"+uid,"label":"Savings goal","icon_unicode":"","goal_amount":money(goal),"goal_progress_percentage":min(1,savings["amount"]/goal),"goal_flow_parameters":""}})
         return {"customer":{"customer_status":"SAVINGS_CUSTOMER_STATUS_ADOPTED"},
                 "balance":{"amount":savings,"stored_value_balance_token":"sim_savings_"+uid},
                 "interest_rate":{"apy_rate":0,"interest_yield_status":"INTEREST_YIELD_STATUS_MANUALLY_DISABLED","interest_tiers_apy_rates":{"standard_interest_apy_rate":0,"enhanced_interest_apy_rate":0}},
-                "versioned_savings_folders":{"v2_folders":[{"token":"sim_savings_"+uid,"balance":savings,"general_folder":{}}]},
+                "versioned_savings_folders":{"v2_folders":folders},
                 "config":{"max_number_of_goals":1,"savings_copy":{"default_savings_folder_label":"Savings","goal_complete_text":"Goal met!"}},
                 "automation_section":{"title":"Save automatically","references":[]}}
     if path == "/cash-app/business-accounts/get-c4b-eligibility":
