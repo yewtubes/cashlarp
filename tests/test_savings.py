@@ -51,6 +51,19 @@ class SavingsTests(unittest.TestCase):
         with self.store.connect() as db:
             self.assertEqual(2,db.execute('SELECT count(*) FROM savings_transfers s JOIN ledger l ON s.ledger_entry_id=l.id WHERE s.user_id=?',(self.uid,)).fetchone()[0])
 
+    def test_savings_activity_filters_other_events_and_reverses_cash_direction(self):
+        self.rpc(IN,self.body())
+        self.store.change_balance(self.uid,100,"add","funding-not-savings")
+        request={"activity_token":{"activity_token_type":"CUSTOMER_TOKEN_SAVINGS_ACCOUNT","token":self.uid}}
+        row=self.rpc('/cash-app/activity/v1.0/page',request)['activity_rows'][0]
+        self.assertEqual(1,len(self.rpc('/cash-app/activity/v1.0/page',request)['activity_rows']))
+        payment=row['payment_history_inputs_row']['payment']
+        self.assertEqual('RECIPIENT',payment['role'])
+        self.assertEqual('+$125.00',payment['history_data']['amount_formatted_activity_list'])
+        self.assertEqual('ADC_SAVINGS',payment['display_category'])
+        receipt=self.rpc('/cash-app/activity/v1.0/get',{**request,'activityItemGlobalId':{'activity_row_id':row['row_id']}})
+        self.assertEqual('RECIPIENT',receipt['activityRow']['payment_history_inputs_row']['payment']['role'])
+
     def test_duplicate_requests_and_conflicting_retries(self):
         with ThreadPoolExecutor(max_workers=8) as pool:
             results=list(pool.map(lambda _:self.store.transfer_savings(self.uid,12500,'in','same-savings-key'),range(8)))

@@ -125,7 +125,7 @@ def payment_row(store, uid, item, request=False):
                            "role":"SENDER" if sent else "RECIPIENT","state":state,
                            "sender_id":sender,"recipient_id":recipient,"amount":money(item["amount_cents"]),"display_category":"ADC_P2P","history_data":history}}}
 
-def activity_rows(store, uid, query=""):
+def activity_rows(store, uid, query="", savings=False):
     if not isinstance(query,str):
         raise CompatibilityError(400,"Search text required")
     rows=[]
@@ -143,6 +143,15 @@ def activity_rows(store, uid, query=""):
         row=payment_row(store,uid,item)
         row["payment_history_inputs_row"]["payment"]["display_category"]=event["category"]
         rows.append(row)
+    if savings:
+        rows=[row for row in rows if row["row_id"].startswith("sim_savings_transfer_")]
+        for row in rows:
+            payment=row["payment_history_inputs_row"]["payment"]
+            incoming=payment["role"]=="SENDER"
+            payment["role"]="RECIPIENT" if incoming else "SENDER"
+            payment["sender_id"]="sim_cash_"+uid if incoming else uid
+            payment["recipient_id"]=uid if incoming else "sim_cash_"+uid
+            payment["history_data"]["amount_formatted_activity_list"]=("+" if incoming else "−")+dollars(payment["amount"]["amount"])
     rows.sort(key=lambda r:(r["display_date_epoch_ms"],r["row_id"]),reverse=True)
     if query:
         normalized=query.lower().replace(",","").replace("$","")
@@ -387,7 +396,11 @@ def read_rpc(path, data, store, uid):
     if path in ("/cash-app/activity/v1.0/page","/cash-app/activity/v1.0/search"):
         request=data.get("request",data)
         if not isinstance(request,dict):raise CompatibilityError(400,"Invalid activity search")
-        rows=activity_rows(store,uid,request.get("free_text_search",""))
+        token=request.get("activity_token",{})
+        if not isinstance(token,dict):raise CompatibilityError(400,"Invalid activity token")
+        savings=token.get("activity_token_type") in ("CUSTOMER_TOKEN_SAVINGS_ACCOUNT","SAVINGS_FOLDER_TOKEN")
+        if savings and token.get("sub_token") not in (None,"sim_savings_"+uid):raise CompatibilityError(404,"Savings folder not found")
+        rows=activity_rows(store,uid,request.get("free_text_search",""),savings=savings)
         def matches(row, f):
             payment=row["payment_history_inputs_row"]["payment"]
             if "counterparty" in f:
@@ -418,8 +431,10 @@ def read_rpc(path, data, store, uid):
     if path == "/cash-app/activity/v1.0/get":
         global_id=data.get("activityItemGlobalId")
         rid=global_id.get("activity_row_id") if isinstance(global_id,dict) else None
-        row=next((r for r in activity_rows(store,uid) if r["row_id"]==rid),None)
-        if not row:
+        token=data.get("activity_token",{})
+        savings=isinstance(token,dict) and token.get("activity_token_type") in ("CUSTOMER_TOKEN_SAVINGS_ACCOUNT","SAVINGS_FOLDER_TOKEN")
+        row=next((r for r in activity_rows(store,uid,savings=savings) if r["row_id"]==rid),None)
+        if not row and not savings:
             request=next((r for r in store.requests(uid) if r["id"]==rid),None)
             if request:
                 row=payment_row(store,uid,request,True)

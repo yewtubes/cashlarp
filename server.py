@@ -596,7 +596,7 @@ class Store:
                      "category":"ADC_BITCOIN","created_at":r["created_at"]} for r in db.execute("SELECT * FROM trades WHERE user_id=?",(uid,))]
             savings=[{"id":r["id"],"delta":-r["amount_cents"] if r["direction"]=="in" else r["amount_cents"],
                       "label":"Moved to Savings" if r["direction"]=="in" else "Moved from Savings",
-                      "category":"ADC_TRANSFERS","created_at":r["created_at"]} for r in db.execute("SELECT * FROM savings_transfers WHERE user_id=?",(uid,))]
+                      "category":"ADC_SAVINGS","created_at":r["created_at"]} for r in db.execute("SELECT * FROM savings_transfers WHERE user_id=?",(uid,))]
         return changes+trades+savings
 
     def activity(self, uid):

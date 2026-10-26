@@ -8,7 +8,7 @@ Current version: 0.7.0. This record distinguishes implemented behavior from comp
 | Cashlarp branding | Yes | Login and account checked; icon checked on dark/checker backgrounds; full wordmark fits, light/dark variants |
 | Native local signup/login | Yes | Original captured forms; fresh installations contain zero accounts. Email/SMS signup, repeat login, interrupted signup and contact-edit isolation covered by HTTP tests; browser CI passed signup, sign-out and returning login against the actual bundles. |
 | Money, payments, requests | Yes | Native funding/payment browser checks; atomic/idempotency and request authorization tests |
-| Savings summary | Yes | Native Activity shows Cash and Savings; Bitcoin summary removed. Original Savings screen renders; transfers and goal editing remain pending. |
+| Savings summary | Yes | Native Activity shows Cash and Savings. Original deposit/withdraw forms passed browser QA, with balances checked after reload. Atomic conservation, concurrent retries, overdrafts, account isolation and PIN replay are covered by tests. Savings history uses its own balance perspective; goals, Round Ups and interest remain pending. |
 | Activity, filters and CSV | Yes | Native filtered export and owner isolation tested; pagination is one local result set |
 | Bitcoin | Yes | Native buy/sell checked; fixed quote and atomic balances tested; no live market |
 | Card activation/lock/PIN | Yes | Native activation, wrong PIN, unlock and persistent PIN changes checked |

@@ -131,6 +131,8 @@ const {chromium} = require('playwright');
       await page.reload();
       await page.getByText('$'+(expected/100).toFixed(2),{exact:true}).first().waitFor();
       assert.equal((await (await context.request.get(base+'/api/me')).json()).user.balance_cents,initialCash-expected);
+      await page.getByText('Moved to Savings',{exact:true}).first().waitFor();
+      if(label==='Transfer out')await page.getByText('Moved from Savings',{exact:true}).first().waitFor();
       await record('savings-'+(label==='Transfer in'?'deposit':'withdraw')+'-saved');
     }
     await page.goto(base+'/account/activity');

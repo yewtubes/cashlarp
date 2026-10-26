@@ -53,6 +53,7 @@ See [Hosting and backups](docs/HOSTING.md) for updates, backup/restore, configur
 
 - Money balance, Add money, Withdraw, Pay and Request.
 - Activity, search, filters, sorting, receipts and per-user CSV exports.
+- Savings transfers in/out through the original forms, persistent separate balances, Savings history and receipts. Transfers conserve Cash plus Savings, support duplicate retries, and honor the Cash PIN preference. Goals, Round Ups and interest are not connected.
 - Card activation, lock/unlock and original Cash PIN controls.
 - Original Card Studio: ten captured card themes plus the green Cashlarp Card, drawing, Undo, Clear, Pattern, cashtag and 245 original stamps plus the generated Benjamin Netanyahu outline stamp. Designs and theme selection persist to SQLite and reload in the original card renderer.
 - Bitcoin purchases and sales at the fixed $100,000/BTC quote, with integer satoshis and atomic cash/holdings updates.
