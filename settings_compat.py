@@ -83,6 +83,7 @@ def dispatch(path,data,store,uid):
         initiation=data.get("initiation_data","")
         if not isinstance(initiation,str):raise CompatibilityError(400,"Flow name required")
         flow=initiation.split("?",1)[0]
+        if flow=="DISPLAY_NAME":return {**block("name",{},store.start_activation(uid,"EDIT_NAME")),"client_scenario":"PLASMA"}
         if flow=="SET_ADDRESS":return {**block("address",{"requires_street_address":True,"requires_city":True,"requires_state":True,"requires_postal_code":True},store.start_activation(uid,"ADDRESS"),{"address_prefill":cfg["postal_address"]}),"client_scenario":"PLASMA"}
         if flow in ("SET_OR_UPDATE_PASSCODE","ENABLE_SECURITY_LOCK_FOR_MOVE_MONEY","DISABLE_SECURITY_LOCK"):
             if flow=="SET_OR_UPDATE_PASSCODE" or not cfg["has_passcode"]:

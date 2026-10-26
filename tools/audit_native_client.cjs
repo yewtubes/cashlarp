@@ -20,7 +20,7 @@ module.exports=async({page,base,output})=>{
     ['notifications-transactions','settings',()=>page.getByText('Transactions',{exact:true})],
     ['appearance-light','settings',()=>page.getByText('Light',{exact:true})],
     ['appearance-dark','settings',()=>page.getByText('Dark',{exact:true})],
-    ['privacy-download','settings',()=>page.getByRole('button',{name:'Download your info',exact:true})],
+    ['privacy-download','settings',()=>page.getByText('Download your info',{exact:true})],
     ['privacy-close','settings',()=>page.getByRole('button',{name:'Close Cashlarp account',exact:true})],
     ['savings-goal','savings',()=>page.getByText('Set goal',{exact:true})],
     ['savings-roundups','savings',()=>page.getByText('Round Ups',{exact:true})],
@@ -48,7 +48,9 @@ module.exports=async({page,base,output})=>{
       await page.waitForLoadState('networkidle');
       const before=await page.locator('body').innerText();
       page.on('response',response);page.on('download',download);
-      await control().first().click({timeout:4000});
+      const target=control().first();
+      if(await target.getAttribute('type')==='checkbox'){await target.focus({timeout:4000});await target.press('Space');}
+      else await target.click({timeout:4000});
       await page.waitForTimeout(800);
       await page.waitForLoadState('networkidle',{timeout:4000}).catch(()=>{});
       finding.url=page.url();
@@ -56,7 +58,8 @@ module.exports=async({page,base,output})=>{
       finding.screen=after.slice(-10000);
       finding.dialogs=await page.getByRole('dialog').allTextContents();
       finding.inputs=await page.locator('input:visible,select:visible,button:visible,a[role=button]:visible').evaluateAll(nodes=>nodes.map(n=>({tag:n.tagName,type:n.getAttribute('type'),label:n.getAttribute('aria-label'),name:n.getAttribute('name'),placeholder:n.getAttribute('placeholder'),text:n.textContent.trim().slice(0,100)})));
-      finding.status=finding.requests.some(r=>r.status>=400)?'rpc-error':finding.downloads.length?'download':before!==after?'screen-changed':'no-visible-change';
+      finding.backgroundErrors=finding.requests.filter(r=>r.status>=400&&(['/2.0/cash/get-reward-status','/cash-app/limits-xp/get-customer-limits','/cash-app/devices/1.0/get-devices','/cash-app/security/1.0/get-settings-page-details'].includes(r.path)||(r.path==='/2.0/cash/get-flow'&&!JSON.parse(r.body||'{}').initiation_data&&!JSON.parse(r.body||'{}').flow_type)));
+      finding.status=finding.requests.some(r=>r.status>=400&&!finding.backgroundErrors.includes(r))?'rpc-error':finding.downloads.length?'download':before!==after?'screen-changed':'no-visible-change';
     }catch(error){finding.status='interaction-error';finding.error=error.message;}
     finally{
       page.off('response',response);page.off('download',download);
@@ -68,6 +71,20 @@ module.exports=async({page,base,output})=>{
   // Restore the original appearance setting after the visual probes.
   await page.goto(base+'/account/settings');
   await page.getByText('Auto',{exact:true}).click();
+  const browser=page.context().browser();
+  const mobile=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true,userAgent:'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 Version/18.0 Mobile/15E148 Safari/604.1'});
+  await mobile.addCookies(await page.context().cookies());
+  const handset=await mobile.newPage();
+  const mobileScreens=[];
+  for(const route of ['money','savings','card','settings','pay-and-request']){
+    await handset.goto(base+'/account/'+route);
+    await handset.waitForLoadState('networkidle');
+    const text=await handset.locator('body').innerText();
+    mobileScreens.push({route,url:handset.url(),text,viewport:await handset.evaluate(()=>({innerWidth,scrollWidth:document.documentElement.scrollWidth}))});
+    await handset.screenshot({path:path.join(output,'mobile-'+route+'.png'),fullPage:true});
+  }
+  fs.writeFileSync(path.join(output,'mobile-client-audit.json'),JSON.stringify(mobileScreens,null,2)+'\n');
+  await mobile.close();
   console.log('Native interaction audit: '+findings.map(f=>f.name+'='+f.status).join(', '));
   return findings;
 };

@@ -20,6 +20,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import urlsplit, parse_qs, quote
 import client_shell
 import profile_photos
+import personal_data
 import compat
 import native_auth
 from server_errors import AuthError
@@ -675,6 +676,9 @@ class Handler(BaseHTTPRequestHandler):
             if not self.hosting_access():
                 return
             path = urlsplit(self.path).path
+            if path == "/cash-app/personal-data":
+                uid=self.auth()["user_id"]
+                return self.send(200,personal_data.export(self.store,uid),extra={"Content-Disposition":'attachment; filename="cashlarp-personal-data.json"'})
             if path == "/cash-app/postcard/get-card-theme-configs":
                 self.auth();return self.send(200,{"card_themes":compat.themes()})
             if path == "/cash-app/config/stamps-config":
