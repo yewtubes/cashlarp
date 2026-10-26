@@ -32,8 +32,8 @@ const {chromium} = require('playwright');
     const response = page.waitForResponse(r => new URL(r.url()).pathname === rpc, {timeout:20000});
     response.catch(()=>{});
     await page.locator('input:visible:not([type=radio]):not([type=checkbox]):not([type=file])').first().fill(value);
-    const button = page.getByRole('button', {name:/^(Continue|Next|Log in|Sign in)$/i}).first();
-    if (await button.isVisible() && await button.isEnabled()) await button.click();
+    const button = page.getByRole('button', {name:/^(Continue|Next|Log in|Sign in|Add)$/i}).first();
+    if (await button.isVisible()) await button.click();
     const result = await response;
     assert.equal(result.status(), 200, rpc + ': ' + await result.text());
   }
