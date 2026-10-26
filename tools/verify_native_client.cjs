@@ -112,6 +112,31 @@ const {chromium} = require('playwright');
       assert.equal(broken.length,0,'Broken images on '+route+': '+broken.join(', '));
       if(route==='activity'){assert(await page.getByTestId('savings-balance-card').isVisible());assert.equal(await page.getByTestId('bitcoin-balance-card').count(),0);}
     }
+    const initialCash=(await (await context.request.get(base+'/api/me')).json()).user.balance_cents;
+    for(const [label,dollars,rpc,expected] of [
+      ['Transfer in','125','/cash-app/internal-transfers/v1.0/add-cash',12500],
+      ['Transfer out','25.50','/cash-app/internal-transfers/v1.0/move-cash',9950]
+    ]){
+      await page.goto(base+'/account/savings');
+      await page.getByRole('button',{name:label,exact:true}).first().click();
+      await record('savings-'+(label==='Transfer in'?'deposit':'withdraw')+'-form');
+      await page.locator('input:visible:not([type=radio]):not([type=checkbox]):not([type=file])').first().fill(dollars);
+      const moved=page.waitForResponse(r=>new URL(r.url()).pathname===rpc,{timeout:20000});
+      moved.catch(()=>{});
+      await page.getByRole('button',{name:'Continue',exact:true}).click();
+      const result=await moved;
+      assert.equal(result.status(),200,'Native Savings transfer failed: '+await result.text());
+      await page.goto(base+'/account/savings');
+      await page.getByText('$'+(expected/100).toFixed(2),{exact:true}).first().waitFor();
+      await page.reload();
+      await page.getByText('$'+(expected/100).toFixed(2),{exact:true}).first().waitFor();
+      assert.equal((await (await context.request.get(base+'/api/me')).json()).user.balance_cents,initialCash-expected);
+      await record('savings-'+(label==='Transfer in'?'deposit':'withdraw')+'-saved');
+    }
+    await page.goto(base+'/account/activity');
+    await page.getByText('Moved to Savings',{exact:true}).first().waitFor();
+    await page.getByText('Moved from Savings',{exact:true}).first().waitFor();
+    await record('savings-transfer-activity');
     await page.goto(base+'/account/settings');
     await page.locator('input[type=file]').first().setInputFiles(path.join(root,'local/brand/apple-touch-icon.png'));
     await page.getByTestId('profile-photo-modal-buttons').getByRole('button',{name:'Save',exact:true}).click();

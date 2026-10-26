@@ -187,7 +187,7 @@ def read_rpc(path, data, store, uid):
         return {"image_url":""}
     extra=store.extras(uid)
     preferences=store.preferences(uid)
-    needs_pin=path in ("/cash-app/cash-in/v1.0/add-cash","/cash-app/out/v1.0/initiate-cash-out","/cash-app/crypto/invest/exchange","/2.0/cash/confirm-payment") or (path=="/2.0/cash/initiate-payment" and data.get("orientation")=="CASH")
+    needs_pin=path in ("/cash-app/internal-transfers/v1.0/add-cash","/cash-app/internal-transfers/v1.0/move-cash","/cash-app/cash-in/v1.0/add-cash","/cash-app/out/v1.0/initiate-cash-out","/cash-app/crypto/invest/exchange","/2.0/cash/confirm-payment") or (path=="/2.0/cash/initiate-payment" and data.get("orientation")=="CASH")
     if needs_pin and config["require_passcode_confirmation"] and not data.get("_sandbox_pin_authorized"):
         token=store.start_action(uid,path,data)
         descriptor={"id":"sim_authorize_action","blocker":{"passcode_verification":{"instrument":{"token":"CUSTOMER_PASSCODE"}}},"supplement":{"passcode_verification":{"main_text":"Confirm with your Cash PIN"}}}
@@ -241,10 +241,11 @@ def read_rpc(path, data, store, uid):
     if path == "/2.0/cash/web/profile":
         return {"profile":profile(user,extra,preferences,config),"issued_cash_card":card(user,extra),"bitcoin_balance":{"snapshot":{"amount":extra["btc_sats"]}},"investing_portfolio_summary":{"has_portfolio":False}}
     if path == "/cash-app/savings/get-savings-overview":
+        savings=money(store.savings_balance(uid))
         return {"customer":{"customer_status":"SAVINGS_CUSTOMER_STATUS_ADOPTED"},
-                "balance":{"amount":money(0)},
+                "balance":{"amount":savings,"stored_value_balance_token":"sim_savings_"+uid},
                 "interest_rate":{"apy_rate":0,"interest_yield_status":"INTEREST_YIELD_STATUS_MANUALLY_DISABLED","interest_tiers_apy_rates":{"standard_interest_apy_rate":0,"enhanced_interest_apy_rate":0}},
-                "versioned_savings_folders":{"v2_folders":[{"token":"sim_savings_"+uid,"balance":money(0),"general_folder":{}}]},
+                "versioned_savings_folders":{"v2_folders":[{"token":"sim_savings_"+uid,"balance":savings,"general_folder":{}}]},
                 "config":{"max_number_of_goals":1,"savings_copy":{"default_savings_folder_label":"Savings","goal_complete_text":"Goal met!"}},
                 "automation_section":{"title":"Save automatically","references":[]}}
     if path == "/cash-app/business-accounts/get-c4b-eligibility":
@@ -252,7 +253,7 @@ def read_rpc(path, data, store, uid):
     if path == "/2.0/cash/get-historical-exchange-data":
         return {"price_history":{"price_ticks":[{"price_cents":10000000,"time":1700000000},{"price_cents":10000000,"time":1800000000}]}}
     if path in ("/2.0/cash/get-or-create-savings-balance", "/cash-app/savings/get-or-create-savings-balance"):
-        return {"balance":{"amount":money(0)},"status":"ADOPTED"}
+        return {"balance":{"amount":money(store.savings_balance(uid)),"stored_value_balance_token":"sim_savings_"+uid},"status":"ADOPTED"}
     if path in ("/2.0/cash/compute-disclosure-sync-value","/cash-app/banking-tab/v1/compute-disclosure-sync-value"):
         return {"sync_value":"sandbox","response_context":{"sync_entities_data":{"entities":[{"sync_value":{"fdic_insurance_customer_status":{}}}]}}}
     if path == "/2.0/cash/suggested-recipients":
@@ -269,6 +270,18 @@ def read_rpc(path, data, store, uid):
         return {"bitcoin":{"news":[]}}
     if path == "/2.0/cash/investing/get-current-prices":
         return {"prices":[{"currency_code":"BTC","price":{"amount":10000000,"currency_code":"USD"}}]}
+    if path in ("/cash-app/internal-transfers/v1.0/add-cash","/cash-app/internal-transfers/v1.0/move-cash"):
+        snapshot=data.get("main_cash_balance_snapshot")
+        if data.get("savings_balance_token") != "sim_savings_"+uid or not isinstance(snapshot,dict) or snapshot.get("instrument_token") != "sim_balance_"+uid:
+            raise CompatibilityError(400,"Choose your own Cash and Savings balances")
+        context=data.get("transfer_context")
+        if context not in ({"home":{}},{"general_folder":{}}):
+            raise CompatibilityError(400,"Choose your general Savings balance")
+        direction="in" if path.endswith("/add-cash") else "out"
+        if direction=="out" and data.get("target_cash_balance_token") != "sim_balance_"+uid:
+            raise CompatibilityError(400,"Choose your own Cash balance")
+        store.transfer_savings(uid,native_amount(data),direction,data.get("external_id"))
+        return success("Moved "+dollars(native_amount(data))+(" to Savings" if direction=="in" else " to Cash"))
     if path == "/2.0/cash/set-card-customization":
         token=data.get("card_theme_token")
         selected=next((t for t in themes() if token in (t["token"],"sim_theme_"+t["id"])),None)

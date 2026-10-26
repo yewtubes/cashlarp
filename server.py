@@ -108,6 +108,16 @@ class Store:
                     note TEXT NOT NULL, idempotency_key TEXT NOT NULL, created_at INTEGER NOT NULL,
                     status TEXT NOT NULL DEFAULT 'pending', transfer_id TEXT REFERENCES transfers(id),
                     UNIQUE(requester,idempotency_key));
+                CREATE TABLE IF NOT EXISTS savings_accounts (
+                    user_id TEXT PRIMARY KEY REFERENCES users(id),
+                    balance_cents INTEGER NOT NULL DEFAULT 0 CHECK(balance_cents>=0));
+                CREATE TABLE IF NOT EXISTS savings_transfers (
+                    id TEXT PRIMARY KEY, user_id TEXT NOT NULL REFERENCES users(id),
+                    amount_cents INTEGER NOT NULL CHECK(amount_cents>0),
+                    direction TEXT NOT NULL CHECK(direction IN ('in','out')),
+                    idempotency_key TEXT NOT NULL, created_at INTEGER NOT NULL,
+                    ledger_entry_id INTEGER NOT NULL REFERENCES ledger(id),
+                    UNIQUE(user_id,idempotency_key));
                 CREATE TABLE IF NOT EXISTS balance_changes (
                     id TEXT PRIMARY KEY, user_id TEXT NOT NULL REFERENCES users(id),
                     amount_cents INTEGER NOT NULL, kind TEXT NOT NULL,
@@ -308,6 +318,40 @@ class Store:
                 result = dict(db.execute("SELECT * FROM requests WHERE id=?",(rid,)).fetchone())
                 db.commit()
                 return result
+            except Exception:
+                db.rollback()
+                raise
+
+    def savings_balance(self, uid):
+        with self.connect() as db:
+            row = db.execute("SELECT balance_cents FROM savings_accounts WHERE user_id=?", (uid,)).fetchone()
+            return row["balance_cents"] if row else 0
+
+    def transfer_savings(self, uid, amount, direction, key):
+        self.validate_payment(amount, "", key)
+        if direction not in ("in", "out"):
+            raise APIError(400, "Choose a Savings transfer direction")
+        with self.connect() as db:
+            db.execute("BEGIN IMMEDIATE")
+            try:
+                previous = db.execute("SELECT * FROM savings_transfers WHERE user_id=? AND idempotency_key=?", (uid,key)).fetchone()
+                if previous:
+                    if (previous["amount_cents"],previous["direction"]) != (amount,direction):
+                        raise APIError(409, "Idempotency key already used for another Savings transfer")
+                    db.commit()
+                    return dict(previous),False
+                db.execute("INSERT OR IGNORE INTO savings_accounts(user_id) VALUES(?)", (uid,))
+                cash_delta = -amount if direction == "in" else amount
+                cash = db.execute("UPDATE users SET balance_cents=balance_cents+? WHERE id=? AND balance_cents+? BETWEEN 0 AND ?", (cash_delta,uid,cash_delta,MAX_CENTS))
+                savings = db.execute("UPDATE savings_accounts SET balance_cents=balance_cents-? WHERE user_id=? AND balance_cents-? BETWEEN 0 AND ?", (cash_delta,uid,cash_delta,MAX_CENTS))
+                if cash.rowcount != 1 or savings.rowcount != 1:
+                    raise APIError(409, "Insufficient balance or balance limit exceeded")
+                tid,now = "sim_savings_transfer_"+secrets.token_hex(12),int(time.time())
+                ledger = db.execute("INSERT INTO ledger(user_id,delta_cents,kind,created_at) VALUES(?,?,?,?)", (uid,cash_delta,"savings_"+direction,now))
+                db.execute("INSERT INTO savings_transfers VALUES(?,?,?,?,?,?,?)", (tid,uid,amount,direction,key,now,ledger.lastrowid))
+                result = dict(db.execute("SELECT * FROM savings_transfers WHERE id=?", (tid,)).fetchone())
+                db.commit()
+                return result,True
             except Exception:
                 db.rollback()
                 raise
@@ -550,7 +594,10 @@ class Store:
             trades=[{"id":r["id"],"delta":-r["cents"] if r["buy"] else r["cents"],
                      "label":"Bought fictional Bitcoin" if r["buy"] else "Sold fictional Bitcoin",
                      "category":"ADC_BITCOIN","created_at":r["created_at"]} for r in db.execute("SELECT * FROM trades WHERE user_id=?",(uid,))]
-        return changes+trades
+            savings=[{"id":r["id"],"delta":-r["amount_cents"] if r["direction"]=="in" else r["amount_cents"],
+                      "label":"Moved to Savings" if r["direction"]=="in" else "Moved from Savings",
+                      "category":"ADC_TRANSFERS","created_at":r["created_at"]} for r in db.execute("SELECT * FROM savings_transfers WHERE user_id=?",(uid,))]
+        return changes+trades+savings
 
     def activity(self, uid):
         with self.connect() as db:
