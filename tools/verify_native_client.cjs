@@ -102,7 +102,7 @@ const {chromium} = require('playwright');
     await page.waitForLoadState('networkidle');
     await record('original-card-customization');
     await page.goto(base+'/account/settings');
-    const logout = page.getByRole('button',{name:/^(Sign out|Log out)$/i}).or(page.getByRole('link',{name:/^(Sign out|Log out)$/i}));
+    const logout = page.getByText(/^(Sign out|Log out)$/i,{exact:true});
     if(!await logout.first().isVisible()) await page.getByText('Native QA P.',{exact:true}).first().click();
     await logout.first().click();
     await page.waitForURL(/\/login/,{timeout:20000});
