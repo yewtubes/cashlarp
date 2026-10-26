@@ -96,7 +96,7 @@ const {chromium} = require('playwright');
     await page.reload();
     await page.locator('img[src*="/local-profile-photo/"]').first().waitFor();
     await record('profile-photo-saved');
-    await page.goto(base+'/dl/view/change-card-design/WHITE');
+    await page.goto(base+'/account/card?resume_order=true');
     await page.getByTestId('card-option-button-sim_cashlarp').waitFor();
     await page.getByTestId('card-option-button-sim_cashlarp').click();
     await page.waitForLoadState('networkidle');
