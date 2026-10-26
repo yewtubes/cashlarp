@@ -7,6 +7,7 @@ import secrets
 import re
 from pathlib import Path
 from copy import deepcopy
+import hashlib
 
 class CompatibilityError(Exception):
     def __init__(self, status, message):
@@ -20,13 +21,13 @@ def dollars(cents):
 
 def profile(user, extra=None, preferences=None, settings=None):
     result = {
-        "customer_token":user["id"],"customer_since":1700000000000,"country_code":"US","full_name":user["display_name"],
+        "customer_token":user["id"],"customer_since":user["created_at"]*1000,"country_code":"US","full_name":user["display_name"],
         "first_name":user["display_name"],"cashtag":user["username"],"default_currency":"USD",
         "email_address":user["username"]+"@example.com",
         "instruments":[{"token":"sim_balance_"+user["id"],"cash_instrument_type":"CASH_BALANCE",
                         "available_balance":money(user["balance_cents"]),"balance":money(user["balance_cents"]),"status":"VERIFIED"},{"token":"sim_funding_"+user["id"],"cash_instrument_type":"DEBIT_CARD",
-                        "supports_cash_in":True,"supports_cash_out":True,"brand":"VISA","suffix":"0000",
-                        "display_name":"Cashlarp source","status":"VERIFIED"}],
+                        "supports_cash_in":True,"supports_cash_out":True,"brand":"VISA","suffix":simulated_last_four(user["id"], "funding"),
+                        "display_name":"Visa","status":"VERIFIED"}],
         "deposit_preference_data":{"cash_out_options":[{"deposit_preference":"TRANSFER_SLOWLY_WITHOUT_FEE","options_text":"Standard withdrawal (free)","fee_data":{"fee_bps":0}}]},
         "aliases":[],"is_business":False,"rate_plan":"PERSONAL","is_verified":True,
         "capabilities":[],"notifications":[],
@@ -46,12 +47,17 @@ def profile(user, extra=None, preferences=None, settings=None):
         result["instruments"].append({"token":"sim_btc_"+user["id"],"cash_instrument_type":"CASH_BALANCE","available_balance":{"amount":extra["btc_sats"],"currency_code":"BTC"}})
     return result
 
+def simulated_last_four(uid, purpose="card"):
+    return str(1000 + int(hashlib.sha256((purpose + ":" + uid).encode()).hexdigest()[:10], 16) % 9000)
+
+
 def card(user,extra):
-    return {"issued_at":1700000000,"activated":bool(extra.get("card_activated",0)),"card_order_data":{} if extra.get("card_activated") else {"state":"ISSUED"},"enabled":bool(extra["card_enabled"]),"virtual":False,
-            "last_four":"0000","cardholder_name":user["display_name"],
+    return {"issued_at":user["created_at"],"activated":bool(extra.get("card_activated",0)),"card_order_data":{} if extra.get("card_activated") else {"state":"ISSUED"},"enabled":bool(extra["card_enabled"]),"virtual":False,
+            "last_four":simulated_last_four(user["id"]),"cardholder_name":user["display_name"],
             "card_theme":extra.get("card_theme",{"id":"BLACK","card_color":"#000000","ink_color":"#ffffff"})}
 
 _THEMES=json.loads((Path(__file__).parent/'capture/config/card-theme-configs.json').read_text())["card_themes"]
+_THEMES += [json.loads(p.read_text()) for p in sorted((Path(__file__).parent/'local/card-themes').glob('*.json'))]
 for _theme in _THEMES:
     _theme.setdefault("title",{"PINK_ID":"Pink","TORTOISE_ID":"Tortoise"}.get(_theme["id"],_theme["id"].removesuffix("_ID").replace("_"," ").title()))
 
@@ -60,7 +66,7 @@ def themes():
 
 def customization_descriptor():
     sections=[]
-    for title,ids in [("Classic",{"BLACK","WHITE","PINK_ID","GLOW_ID"}),("Signature",{"HOLO_ID","MOOD_ID","GLITTER_ID","TORTOISE_ID"}),("Metal",{"METAL_BLACK_ID","METAL_OIL_SLICK_ID"})]:
+    for title,ids in [("Cashlarp",{"CASHLARP"}),("Classic",{"BLACK","WHITE","PINK_ID","GLOW_ID"}),("Signature",{"HOLO_ID","MOOD_ID","GLITTER_ID","TORTOISE_ID"}),("Metal",{"METAL_BLACK_ID","METAL_OIL_SLICK_ID"})]:
         options=[{"external_identifier":"sim_"+theme["id"].lower(),"accessibility_text":theme["title"]+" card",
                   "title":theme["title"],"detail_text":"Cashlarp card","card_availability":"AVAILABLE","customization_eligible":True,
                   "cashtag_display":"OPTIONAL","card_theme":theme,"card_preview_text":{"body":"Design your card",

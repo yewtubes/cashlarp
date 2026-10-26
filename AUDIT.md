@@ -12,8 +12,8 @@ Current version: 0.7.0. This record distinguishes implemented behavior from comp
 | Bitcoin | Yes | Native buy/sell checked; fixed quote and atomic balances tested; no live market |
 | Card activation/lock/PIN | Yes | Native activation, wrong PIN, unlock and persistent PIN changes checked |
 | Card drawing | Yes | Native White card, drawn K, Undo/redraw, save and reload checked |
-| Card stamps | Yes | 245 original stamps; football selected, saved and reloaded in original card renderer |
-| Card styles | Yes | Ten original configurations; picker checked, Chameleon Metal selected and persisted; every style's editor is not individually checked |
+| Card stamps | Yes | 245 original stamps plus the monochrome Netanyahu stamp; football selected, saved and reloaded in original card renderer |
+| Card styles | Yes | Ten original configurations plus Cashlarp; picker checked, Chameleon Metal selected and persisted; every style's editor is not individually checked |
 | Adaptive Card Studio rendering | Yes | Original 2D fallback checked in managed browser; capable-device 3D path requires further device testing |
 | Name/cashtag/contact/address | Yes | Original forms checked; aliases restricted to reserved local fixtures |
 | PIN requirement | Yes | Server spoof rejection, wrong PIN, replay/exactly-once covered; additional native funding UI checks pending |
@@ -23,7 +23,7 @@ Current version: 0.7.0. This record distinguishes implemented behavior from comp
 | Public profile link | Partial | Link routes to Pay & Request; recipient preselection and public visibility enforcement pending |
 | Replacement card journey | Pending | Original button present; report-lost scenario adapter not yet implemented |
 | Bank linking / replacement | Pending | Simulated default source; native link/remove/replace adapters pending |
-| Profile photo | Pending | Native upload entry exists; local upload persistence pending |
+| Profile photo | Yes | Original upload dialog stores cropped JPEG/PNG in SQLite; persistence, removal and MIME handling covered by regression tests |
 | Personal-data download | Pending | Link present; full export endpoint pending |
 | Account closure | Pending | Original entry present; local recoverable closure adapter pending |
 | Passkeys | Partial | Empty native credential list; actual WebAuthn enrollment/login not implemented |

@@ -50,12 +50,12 @@ See [Hosting and backups](docs/HOSTING.md) for updates, backup/restore, configur
 - Money balance, Add money, Withdraw, Pay and Request.
 - Activity, search, filters, sorting, receipts and per-user CSV exports.
 - Card activation, lock/unlock and original Cash PIN controls.
-- Original Card Studio: ten captured card themes, drawing, Undo, Clear, Pattern, cashtag and 245 original stamps. Designs and theme selection persist to SQLite and reload in the original card renderer.
+- Original Card Studio: ten captured card themes plus the green Cashlarp Card, drawing, Undo, Clear, Pattern, cashtag and 245 original stamps plus the generated Benjamin Netanyahu outline stamp. Designs and theme selection persist to SQLite and reload in the original card renderer.
 - Bitcoin purchases and sales at the fixed $100,000/BTC quote, with integer satoshis and atomic cash/holdings updates.
 - Name, cashtag, reserved email/phone aliases, address, request privacy, PIN security and notification preferences.
 - Original light/dark/auto appearance, with local HTTP preference-cookie adaptation.
 
-Browser verification includes native signup through name/cashtag, funding and payments, PIN editing, address/contact editing, drawing persistence, a football stamp saved and reloaded, ten-theme picker, Chameleon Metal selection/reload, light/dark branding and appearance persistence. See `AUDIT.md` for verification boundaries.
+Browser verification includes native signup through name/cashtag, funding and payments, PIN editing, address/contact editing, drawing persistence, a football stamp saved and reloaded, original theme picker, Chameleon Metal selection/reload, light/dark branding and appearance persistence. See `AUDIT.md` for verification boundaries.
 
 ## Architecture and integrity
 

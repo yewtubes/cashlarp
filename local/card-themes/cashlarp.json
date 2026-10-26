@@ -1,0 +1,17 @@
+{
+  "token": "CT_CASHLARP",
+  "title": "Cashlarp Card",
+  "id": "CASHLARP",
+  "card_color": "#00D64B",
+  "ink_color": "#052B14",
+  "card_info_text_color": "#052B14",
+  "mag_stripe_color": "#063A1D",
+  "font": "CASH_MARKET_REGULAR",
+  "gradient_style": "DIAGONAL_DARK",
+  "pattern_grid_alpha": 0.15,
+  "card_customization_margin": {
+    "color": "#00D64B",
+    "alpha": 0.0,
+    "size": 0.0
+  }
+}

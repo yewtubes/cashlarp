@@ -114,6 +114,9 @@ class Store:
                     idempotency_key TEXT NOT NULL, created_at INTEGER NOT NULL,
                     UNIQUE(user_id,idempotency_key));
             """)
+            if "created_at" not in [r["name"] for r in db.execute("PRAGMA table_info(users)")]:
+                db.execute("ALTER TABLE users ADD COLUMN created_at INTEGER NOT NULL DEFAULT 0")
+                db.execute("UPDATE users SET created_at=? WHERE created_at=0", (int(time.time()),))
             if "created_at" not in [r["name"] for r in db.execute("PRAGMA table_info(trades)")]:
                 db.execute("ALTER TABLE trades ADD COLUMN created_at INTEGER NOT NULL DEFAULT 0")
             if "purpose" not in [r["name"] for r in db.execute("PRAGMA table_info(activation_flows)")]:
@@ -140,9 +143,9 @@ class Store:
             try:
                 if db.execute("SELECT user_id FROM preferences WHERE cashtag=?",(username,)).fetchone():
                     raise APIError(409,"That sandbox name is already reserved")
-                db.execute("INSERT INTO users VALUES (?,?,?,?,?,?)",
+                db.execute("INSERT INTO users(id,username,display_name,salt,password_hash,balance_cents,created_at) VALUES (?,?,?,?,?,?,?)",
                            (uid, username, display_name or username, salt.hex(),
-                            password_hash(password, salt), INITIAL_CENTS))
+                            password_hash(password, salt), INITIAL_CENTS, int(time.time())))
                 db.execute("INSERT INTO ledger(user_id,delta_cents,kind,created_at) VALUES (?,?,?,?)",
                            (uid, INITIAL_CENTS, "opening_play_money", int(time.time())))
                 db.commit()
@@ -153,7 +156,7 @@ class Store:
 
     def user(self, uid):
         with self.connect() as db:
-            row = db.execute("SELECT id,username,display_name,balance_cents FROM users WHERE id=?", (uid,)).fetchone()
+            row = db.execute("SELECT id,username,display_name,balance_cents,created_at FROM users WHERE id=?", (uid,)).fetchone()
         if not row:
             raise APIError(404, "Sandbox user not found")
         return dict(row)
@@ -628,7 +631,10 @@ class Handler(BaseHTTPRequestHandler):
             if path == "/cash-app/postcard/get-card-theme-configs":
                 self.auth();return self.send(200,{"card_themes":compat.themes()})
             if path == "/cash-app/config/stamps-config":
-                self.auth();return self.send(200,(ROOT / "capture/config/stamps-config.json").read_bytes())
+                self.auth()
+                catalog=json.loads((ROOT / "capture/config/stamps-config.json").read_text())
+                catalog["stamps"] += [json.loads(p.read_text()) for p in sorted((ROOT / "local/stamps").glob("*.json"))]
+                return self.send(200,catalog)
             if path in ("/favicon.ico", "/favicon.png", "/apple-touch-icon.png", "/favicon.svg"):
                 name = path.removeprefix("/")
                 return self.send(200, (ROOT / "local/brand" / name).read_bytes(), mimetypes.guess_type(name)[0] or "image/x-icon")

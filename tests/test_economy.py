@@ -74,7 +74,7 @@ class EconomyTests(unittest.TestCase):
   result=self.rpc('/2.0/cash/get-flow',{'initiation_data':'CHANGE_CARD_DESIGN'})
   descriptor=result['response_context']['scenario_plan']['blocker_descriptors'][0]
   self.assertEqual('card_customization',descriptor['id'])
-  options=descriptor['blocker']['card_customization']['card_option_sections'][0]['options']
+  options=descriptor['blocker']['card_customization']['card_option_sections'][1]['options']
   self.assertEqual({'BLACK','WHITE','PINK_ID','GLOW_ID'},{o['card_theme']['id'] for o in options})
   self.rpc('/2.0/cash/set-card-customization',{'card_theme_token':'sim_theme_WHITE','image_bytes':png,'include_cashtag':True,'touch_data':{'strokes':[{'test':'stroke'}],'stamps':[],'width':2023,'height':1276}})
   self.assertEqual('WHITE',self.store.card_design(self.uid)['theme'])

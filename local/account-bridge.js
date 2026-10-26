@@ -12,6 +12,33 @@
       return function(...payloads) {
         for (const payload of payloads) {
           const factories = payload?.[1];
+          const backgroundFactory = factories?.[14379];
+          if (backgroundFactory && !backgroundFactory.cashlarpWrapped) {
+            const wrappedBackground = function(module, exports, require) {
+              const proxy = new Proxy(require, {
+                get(target, key, receiver) {
+                  if (key !== "d") return Reflect.get(target,key,receiver);
+                  return (targetExports, definitions) => {
+                    if (!definitions.i) return target.d(targetExports,definitions);
+                    const original = definitions.i;
+                    const React = require(86326);
+                    const CashlarpBackground = props => {
+                      if (props.option?.card_theme?.id !== "CASHLARP") return React.createElement(original(),props);
+                      const option = {...props.option,card_theme:{...props.option.card_theme,id:"TAP_DEVICE_TRIAL_ID"}};
+                      const element = original()({...props,option});
+                      const container = element.props.children;
+                      const artwork = React.createElement("img",{src:"/local/card-themes/cashlarp-art.svg",alt:"",style:{position:"absolute",inset:0,width:"100%",height:"100%",borderRadius:"inherit",pointerEvents:"none"}});
+                      return React.cloneElement(element,{},React.cloneElement(container,{},artwork,...React.Children.toArray(container.props.children)));
+                    };
+                    return target.d(targetExports,{...definitions,i:()=>CashlarpBackground});
+                  };
+                }
+              });
+              return backgroundFactory(module,exports,proxy);
+            };
+            wrappedBackground.cashlarpWrapped = true;
+            factories[14379] = wrappedBackground;
+          }
           const factory = factories?.[77093];
           if (factory && !factory.sandboxWrapped) {
             const wrapped = function(module, exports, require) {
